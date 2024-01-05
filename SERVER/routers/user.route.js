@@ -1,11 +1,12 @@
 
 import {Router} from "express";
 import {register,login,logout,profile} from "../controllers/user.controllers.js"
-const router=Router()
+import isLoggedIn from "../middlewares/userAuth.js"
+const userRoute=Router()
 
-router.post("/register",register)
-router.post("/login",login)
-router.get("/logout",logout)
-router.get("/profile",profile)
+userRoute.post("/register",register)
+userRoute.post("/login",login)
+userRoute.get("/logout",logout)
+userRoute.get("/profile",isLoggedIn,profile)
 
-export default router;
+export default userRoute;

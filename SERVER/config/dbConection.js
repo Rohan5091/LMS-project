@@ -5,7 +5,7 @@
   try {
     
     const {connection}= await mongoose.connect(
-        process.env.MONGOOSE_URL
+       `${process.env.MONGOOSE_URL}`
     )
     if (connection) {
        console.log(`database is sucessfull connected to ${connection.host}`);

@@ -2,6 +2,7 @@ import express from "express";
 import morgan from "morgan";
 import cookieParser from "cookie-parser";
 import cors from "cors";
+import userRoute from "./routers/user.route.js"
 import errorMiddleware from "./middlewares/error.middlewares.js"
 
 const app=express();
@@ -16,10 +17,13 @@ app.use(cors({
 
 // 3 module
 
+
+app.use("/api/v1/user/",userRoute);
+
+
 app.use("/",(req,res)=>{
   res.send("Hey I am rohan malakar")   
 });
- app.use("/api/v1/user",userRoute)
 
 
 app.all("*",(req,res,next)=>{
@@ -27,6 +31,6 @@ app.all("*",(req,res,next)=>{
       res.send("OOPS! page not found")   
 });
 
-app.use(errorMiddleware());
+app.use(errorMiddleware)
 
 export default app;

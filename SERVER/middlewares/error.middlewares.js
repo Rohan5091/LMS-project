@@ -1,7 +1,7 @@
 
 const errorMiddleware=(err,req,res,next)=>{
          err.statusCode=err.statusCode||500;
-         err.message="Something went wrong";
+         err.message=err.message||"Something went wrong";
 
          return res.status(err.statusCode).json({
            success:false,

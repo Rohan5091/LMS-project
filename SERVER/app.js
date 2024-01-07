@@ -3,7 +3,7 @@ import morgan from "morgan";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import userRoute from "./routers/user.route.js"
-import errorMiddleware from "./middlewares/error.middlewares.js"
+import errorMiddleware from "./middlewares/error.middlewares.js";
 
 const app=express();
  
@@ -14,6 +14,8 @@ app.use(cors({
    origin:process.env.FRONTEND_URL,
    credentials:true
 }));
+app.use(express.urlencoded({extended:true,limit:"16kb"}));
+app.use(express.static("public"));
 
 // 3 module
 

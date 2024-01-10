@@ -4,6 +4,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import userRoute from "./routers/user.route.js"
 import errorMiddleware from "./middlewares/error.middlewares.js";
+import courseRoute from "./routers/course.route.js";
 
 const app=express();
  
@@ -21,7 +22,7 @@ app.use(express.static("public"));
 
 
 app.use("/api/v1/user/",userRoute);
-
+app.use("/api/v1/courses",courseRoute);
 
 app.use("/",(req,res)=>{
   res.send("Hey I am rohan malakar")   

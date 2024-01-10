@@ -3,12 +3,12 @@ import ApiResponse from "../utills/apiresponse.js";
 import ApiError from "../utills/error.utills.js";
 import emailValidator from "email-validator";
 import cloudinary from "cloudinary";
-import fs from "fs/promises";
+import fs from "fs";
 import sendMail from "../utills/sendMail.utills.js";
 import crypto from "crypto";
 
 const cookieOptions = {
-  maxAge: 7 * 1000 * 60 * 60 * 24, // 7days
+  maxAge: 7 * 1000 * 60 * 60 * 24, 
   httpOnly: true,
   secure: true,
 };
@@ -20,26 +20,28 @@ const register = async function (req, res, next) {
     return next(new ApiError(409, "Every field is required"));
   }
 
-  //Email validator
+  
   const valid = emailValidator.validate(email);
   if (!valid) {
     return next(new ApiError(409, "Enter a valid email id"));
   }
-  // find that the user is present or not
+
   const emailExist = await User.findOne({ email });
 
   if (emailExist) {
     return next(new ApiError(409, "User is already exist"));
   }
+
+  
   const user = await User.create({
     fullName,
     email,
     password,
     avatar: {
-      public_id: email,
-      public_url: null,
+      public_id: null,
+      secure_url: null,
     },
-  });
+  }); 
 
   if (!user) {
     return next(new ApiError(409, "User is not created"));
@@ -47,33 +49,39 @@ const register = async function (req, res, next) {
 
   if (req.file) {
 
-    try {
       
-       await cloudinary.v2.uploader.upload(
-         req.file.path,
-         {
-           folder: "LMS",
-           width: 250,
-           hight: 250,
-           gravity: "face",
-           crop: "fill",
-         },
-         (error, result) => {
-           if (result) {
-             user.avatar.public_id = result.public_id;
-             user.avatar.secure_url = result.secure_url;
-   
-             //remove file from server
-             fs.rm(`uplouds/${req.file.filename}`);
-           }
-         }
-       );
-    } catch (error) {
-       console.log(error.message);
-    }
-  }
+      await cloudinary.v2.uploader.upload(
+        req.file.path,
+        {
+          folder: "LMS",
+          width: 250,
+          hight: 250,
+          gravity: "face",
+          crop: "fill",
+        },
+        (error, result) => {
+          if (error) {  
+            return next(new ApiError(409, "avatar is not uploaded"));
+          }
+          if (result) {
+            user.avatar.public_id=result.public_id;
+            user.avatar.secure_url=result.secure_url;
+          }
+          
+        }
+      );
 
-  await user.save();
+
+   // fs.unlink(`uplouds/${req.file.filename}`,(err)=>{
+    //      if (err) {
+    //         console.log(`file is not deleted ${err.message}`);
+    //      }else{
+    //       console.log("file is deleted");
+    //      }  
+    // });
+     
+  }
+   await user.save();
   user.password = undefined;
 
   const token = await user.generateJWTtoken();
@@ -81,7 +89,7 @@ const register = async function (req, res, next) {
 
   return res.status(202).json({
     success: true,
-    message: "USER IS SUCESSFULLY RESISTER TO THE ",
+    message: "USER IS SUCESSFULLY RESISTER ",
     data: user,
   });
 };
@@ -119,7 +127,7 @@ const logout = async (req, res) => {
   });
   res.status(202).json({
     success: true,
-    message: "user login sucessfully",
+    message: "user logout sucessfully",
   });
 };
 
@@ -239,17 +247,21 @@ const changePassword = async function (req, res, next) {
 };
 
 const updateProfile = async (req, res, next) => {
-  const id = req.user.id;
-  const fullName = req.body;
+   const id = req.user.id;
+  
+  const {fullName,role}= req.body;
 
-  const user = User.findById(id);
-
+  const user = await User.findById(id);
+  
   if (!user) {
     return next(new ApiError(400, "Unautherized access"));
   }
+ 
 
   if (fullName) {
     user.fullName = fullName;
+    user.role=role
+   
   }
 
   if (req.file) {
@@ -265,20 +277,21 @@ const updateProfile = async (req, res, next) => {
       if (result) {
         user.avatar.public_id = result.public_id;
         user.avatar.secure_url = result.secure_url;
-
-        //remove file from server
-        fs.rm(`uploud/${req.file.filename}`);
+        //fs.rm(`uplouds/${req.file.filename}`);
       }
     } catch (error) {
       return next(
-        new ApiError(500, error || "file not uploaded please try again ")
+        new ApiError(500, error.message  || "file not uploaded please try again ")
       );
     }
+
   }
-  await user.save();
-  return res.status(202).json({
+   
+   await user.save()
+   return res.status(202).json({
     success: true,
-    message: "Your Password is Reset successfuly",
+    message: "Your profile is Updated successfuly",
+    data: user
   });
 };
 

@@ -3,6 +3,8 @@ config()
 import app from "./app.js";
 import conectDB from "./config/dbConection.js"
 import cloudinary from "cloudinary"
+import EventEmitter from 'events';
+EventEmitter.defaultMaxListeners = 15;
 
 
 

@@ -29,11 +29,11 @@ const userSchema = new Schema(
       select: false,
       minlength: [5, "Password must contain atleast 5 charactors"],
     },
-    avatar: {
+    avatar:{
       public_id: {
         type: String,
       },
-      public_url: {
+      secure_url: {
         type: String,
       },
     },

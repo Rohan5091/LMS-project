@@ -1,12 +1,12 @@
 
+import { Route,Routes } from 'react-router-dom'
 import './app.css'
-
-export function App() {
-  
+export default function App() {
 
   return (
-    <>
-      <h1>basic setup is copleted</h1>
-    </>
+      // <Routes>
+      //   {/* <Route path='/' element={<Home/>}/> */}
+      // </Routes>
+      <h1>rohan malakar</h1>
   )
 }

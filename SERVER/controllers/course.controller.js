@@ -16,7 +16,6 @@ const getAllCourses = async (req, res, next) => {
     return next(new ApiError(409, error.message));
   }
 };
-
 const getLecturesByCourseId = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -37,7 +36,6 @@ const getLecturesByCourseId = async (req, res, next) => {
     return next(new ApiError(409, error.message));
   }
 };
-
 const createCourse = async (req, res, next) => {
   const { title, description, category, createdBy } = req.body;
 

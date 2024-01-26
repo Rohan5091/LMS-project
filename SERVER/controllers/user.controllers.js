@@ -3,7 +3,7 @@ import ApiResponse from "../utills/apiresponse.js";
 import ApiError from "../utills/error.utills.js";
 import emailValidator from "email-validator";
 import cloudinary from "cloudinary";
-import fs from "fs";
+import fs from "fs/promises";
 import sendMail from "../utills/sendMail.utills.js";
 import crypto from "crypto";
 
@@ -46,42 +46,31 @@ const register = async function (req, res, next) {
   if (!user) {
     return next(new ApiError(409, "User is not created"));
   }
-
-  if (req.file) {
-
-      
-      await cloudinary.v2.uploader.upload(
-        req.file.path,
-        {
-          folder: "LMS",
-          width: 250,
-          hight: 250,
-          gravity: "face",
-          crop: "fill",
-        },
-        (error, result) => {
-          if (error) {  
-            return next(new ApiError(409, "avatar is not uploaded"));
+  try {
+    if (req.file) {
+        await cloudinary.v2.uploader.upload(
+          req.file.path,
+          {
+            folder: "LMS",
+            width: 250,
+            hight: 250,
+            gravity: "face",
+            crop: "fill",
+          },
+          (error, result) => {
+            
+            if (result) {
+              user.avatar.public_id=result.public_id;
+              user.avatar.secure_url=result.secure_url;
+            }
+            
           }
-          if (result) {
-            user.avatar.public_id=result.public_id;
-            user.avatar.secure_url=result.secure_url;
-          }
-          
-        }
-      );
-
-
-   // fs.unlink(`uplouds/${req.file.filename}`,(err)=>{
-    //      if (err) {
-    //         console.log(`file is not deleted ${err.message}`);
-    //      }else{
-    //       console.log("file is deleted");
-    //      }  
-    // });
-     
+        );
+      }
+  } catch (error) {
+    return next(new ApiError(409, error.message)); 
   }
-   await user.save();
+    await user.save();
   user.password = undefined;
 
   const token = await user.generateJWTtoken();

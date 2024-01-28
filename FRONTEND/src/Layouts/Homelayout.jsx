@@ -14,9 +14,6 @@ function Homelayout({children}) {
      const element=document.getElementsByClassName("drawer-toggle")
      element[0].checked = false;
   }
-
-
-
   return (
     <div className="min-w-[90vw] ">
       <div className="drawer">

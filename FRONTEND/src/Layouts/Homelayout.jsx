@@ -34,7 +34,7 @@ function Homelayout({children}) {
               <ImCross onClick={hidedrower} size={"50px"}/>
             </li>
             <li>
-              <Link to={"/"}>
+              <Link  to={"/"}>
                  <span  className="text-lg ">Home</span>
               </Link>
             </li>

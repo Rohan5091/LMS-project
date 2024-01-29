@@ -44,13 +44,13 @@ function Homelayout({children}) {
               </Link>
             </li>
             <li>
-              <Link to={"/contact"}>
-                 <span className="text-lg ">Contact Us</span>
+              <Link to={"/signup"}>
+                 <span className="text-lg ">Sign up</span>
               </Link>
             </li>
             <li>
-              <Link to={"/"}>
-                 <span className="text-lg ">Home</span>
+              <Link to={"/contact"}>
+                 <span className="text-lg ">Contact Us</span>
               </Link>
             </li>
           </ul>

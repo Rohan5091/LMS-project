@@ -26,6 +26,23 @@ export const createAccount=createAsyncThunk("/auth/sigup", async (data)=>{
    }
 })
 
+export const Loginmethod=createAsyncThunk("/auth/login", async (data)=>{
+   try {
+       const res= axiosInstance.post("/user/login",data);
+       toast.promise(res,{
+         loading:"wait! login in process",
+         success:((data)=>{
+             return data?.data?.message;
+         }),
+         error:"Failed to LoggedIn"
+
+       });
+       return (await res).data;
+   } catch (error) {
+      toast.error(error?.response?.data?.message)
+   }
+})
+
 const authSlice=createSlice({
   name:"authSlice",
   initialState,

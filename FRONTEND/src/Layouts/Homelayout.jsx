@@ -49,8 +49,8 @@ function Homelayout({children}) {
               </Link>
             </li>
             <li>
-              <Link to={"/contact"}>
-                 <span className="text-lg ">Contact Us</span>
+              <Link to={"/login"}>
+                 <span className="text-lg ">login</span>
               </Link>
             </li>
           </ul>

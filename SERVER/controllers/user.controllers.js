@@ -1,5 +1,4 @@
 import User from "../models/user.model.js";
-import ApiResponse from "../utills/apiresponse.js";
 import ApiError from "../utills/error.utills.js";
 import emailValidator from "email-validator";
 import cloudinary from "cloudinary";
@@ -85,7 +84,7 @@ const register = async function (req, res, next) {
 
 const login = async (req, res, next) => {
   const { email, password } = req.body;
-
+  console.log( "server",email, password);
   if (!email || !password) {
     return next(new ApiError(409, "Every field is required"));
   }

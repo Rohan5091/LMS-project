@@ -17,13 +17,11 @@ function Login() {
  
   function handelformdata(e) {
     const { name, value } = e.target;
-
     setLoginData({
       ...LoginData,
       [name]: value,
     });
   }
-console.log("login",LoginData);
 
   
   async function OnLogin(e) {
@@ -47,7 +45,7 @@ console.log("login",LoginData);
      const formData={
        ...LoginData
      }
-    console.log("formData",formData);
+ 
      const response=await dispatch(Loginmethod(formData))
       if (response?.payload?.success) {
         navigate("/")
@@ -96,7 +94,7 @@ console.log("login",LoginData);
             Login
           </button>
           <p>
-            Do not have a account?
+            Do not have a account?{" "}
             <Link
               className="text-yellow-500 text-lg font-semibold"
               to={"/SignUp"}

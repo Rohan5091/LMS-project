@@ -6,6 +6,7 @@ import AboutPage from './Pages/AboutPage'
 import NotFoundPage from './Pages/NotFoundPage'
 import SignUp from './Pages/SignUp'
 import Login from './Pages/loginpage'
+import CoursesList from './Pages/Courses/CoursesList'
 
 export default function App() {
 
@@ -15,6 +16,7 @@ export default function App() {
         <Route path='/about' element={<AboutPage/>}/>
         <Route path='/signup' element={<SignUp/>}/>
         <Route path='/login' element={<Login/>}/>
+        <Route path='/courses' element={<CoursesList/>}/>
         <Route path='*' element={<NotFoundPage/>}/>
       </Routes>
   )

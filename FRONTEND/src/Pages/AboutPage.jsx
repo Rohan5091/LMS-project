@@ -9,7 +9,7 @@ function AboutPage() {
     <Homelayout>
       <div className="w-full flex justify-center items-center flex-col ">
         <div className="flex sm:flex-row flex-col mt-5 items-center justify-center ">
-          <div className="w-full sm:w-1/2 px-5  lg:px-16 space-y-5 z-20 ">
+          <div className="w-full sm:w-1/2 px-5  lg:px-16 space-y-5  ">
             <h1 className=" text-3xl sm:text-4xl lg:text-5xl text-yellow-500">
               Affordable and quility education
             </h1>

@@ -7,7 +7,7 @@ function Homepage() {
   return (
      <Homelayout>
           <div className='flex flex-col sm:flex-row items-center sm:justify-center lg:mb-44 lg:pt-12  my-6 '>
-              <div className='sm:w-1/2 pl-6 space-y-5 z-20'>
+              <div className='sm:w-1/2 pl-6 space-y-5 '>
                   <h1 className='text-3xl font-semibold sm:text-5xl mb-4'>
                      Find out best <span className='text-yellow-500'>Online course</span>
                   </h1>

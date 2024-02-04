@@ -74,7 +74,7 @@ userSchema.pre("save", async function (next) {
 // this method for creating the JWT token for the user
 
 userSchema.methods = {
-  generateJWTtoken:async function () {
+  generateJWTtoken: async function () {
     return await jwt.sign(
       {
         id: this._id,

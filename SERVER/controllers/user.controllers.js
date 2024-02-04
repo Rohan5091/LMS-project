@@ -62,7 +62,6 @@ const register = async function (req, res, next) {
               user.avatar.public_id=result.public_id;
               user.avatar.secure_url=result.secure_url;
             }
-            
           }
         );
       }

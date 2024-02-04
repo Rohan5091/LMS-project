@@ -63,6 +63,11 @@ function Homelayout({children}) {
                  <span className="text-lg ">About</span>
               </Link>
             </li>
+            <li>
+              <Link to={"/contact"}>
+                 <span className="text-lg ">Contact</span>
+              </Link>
+            </li>
            
             {
               (!isLoggedIn) && (

@@ -1,7 +1,5 @@
 import { useNavigate } from "react-router-dom"
 
-
-
 function DiniedPage() {
   const navigate=useNavigate()
   return (

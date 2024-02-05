@@ -55,7 +55,6 @@ function Contact() {
      } catch (error) {
         toast.error(error.message)
      }
-
   }
 
   return (

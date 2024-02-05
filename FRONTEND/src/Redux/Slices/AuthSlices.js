@@ -18,7 +18,6 @@ export const createAccount=createAsyncThunk("/auth/sigup", async (data)=>{
              return data?.data?.message;
          }),
          error:"Failed to create account"
-
        });
        return (await res).data;
    } catch (error) {
@@ -27,19 +26,20 @@ export const createAccount=createAsyncThunk("/auth/sigup", async (data)=>{
 })
 
 export const Loginmethod=createAsyncThunk("/auth/login", async (data)=>{
+       
    try {
-       const res= axiosInstance.post("/user/login",data);
+       const res=axiosInstance.post("/user/login",data);
        toast.promise(res,{
          loading:"wait! login in process",
          success:((data)=>{
              return data?.data?.message;
          }),
          error:"Failed to LoggedIn"
-
        });
-       return (await res).data;
+       return (await res).data
+
    } catch (error) {
-      toast.error(error?.response?.data?.message)
+      toast.error(error?.message)
    }
 })
 export const logoutmethod=createAsyncThunk("auth/logout",async()=>{
@@ -66,11 +66,12 @@ const authSlice=createSlice({
   reducers:{},
   extraReducers:(builder)=>{
     builder.addCase(Loginmethod.fulfilled,(state,action)=>{
+        
         localStorage.setItem("isLoggedIn",true)
-        localStorage.setItem("role",action?.payload?.user?.role)
-        localStorage.setItem("data",action?.payload?.user)
-        state.data=action?.payload?.user
-        state.role=action?.payload?.user?.role
+        localStorage.setItem("role",action?.payload?.data?.role)
+        localStorage.setItem("data",action?.payload?.data)
+        state.data=action?.payload?.data
+        state.role=action?.payload?.data?.role
         state.isLoggedIn=true;
     })
     builder.addCase(logoutmethod.fulfilled,(state,action)=>{

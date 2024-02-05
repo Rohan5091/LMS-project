@@ -10,7 +10,6 @@ function Homelayout({children}) {
   const navigate=useNavigate()
   const isLoggedIn=useSelector((state)=>state?.auth?.isLoggedIn)
   const role=useSelector((state)=>state?.auth?.role)
-   
   function opensideBar() {
      const bar=document.getElementsByClassName("drawer-side")
      bar[0].style.width = "auto";

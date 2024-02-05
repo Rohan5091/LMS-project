@@ -1,6 +1,5 @@
 
 function Slides({ image, title, description, totalslides, slidenumber }) {
-  console.log("llll");
   return (
     <div
       id={`slide${slidenumber}`}

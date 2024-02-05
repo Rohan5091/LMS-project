@@ -6,8 +6,6 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 const initialState={
     coursedata:[]
 }
-
-
  export const GetAllCourses=createAsyncThunk("courses/get",async()=>{
      try {
         const response=axiosInstance.get("/courses")
@@ -32,7 +30,6 @@ const initialState={
   extraReducers:(builder)=>{
      builder.addCase(GetAllCourses.fulfilled,(state,action)=>{
          if (action.payload) {
-            console.log(action.payload);
             state.coursedata=[...action.payload];
          }
      })

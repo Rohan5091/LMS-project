@@ -9,6 +9,7 @@ import Login from './Pages/loginpage'
 import CoursesList from './Pages/Courses/CoursesList'
 import Contact from './Pages/Contact'
 import DiniedPage from './Pages/DiniedPage'
+import CourseDescription from './Pages/Courses/CourseDescription'
 
 export default function App() {
 
@@ -21,6 +22,7 @@ export default function App() {
         <Route path='/courses' element={<CoursesList/>}/>
         <Route path='/contact' element={<Contact/>}/>
         <Route path='/dinied' element={<DiniedPage/>}/>
+        <Route path='/course/description' element={<CourseDescription/>}/>
 
         <Route path='*' element={<NotFoundPage/>}/>
       </Routes>

@@ -25,7 +25,6 @@ export const createAccount=createAsyncThunk("/auth/sigup", async (data)=>{
       toast.error(error?.response?.data?.message)
    }
 })
-
 export const Loginmethod=createAsyncThunk("/auth/login", async (data)=>{
        
    try {
@@ -59,11 +58,34 @@ export const logoutmethod=createAsyncThunk("auth/logout",async()=>{
         toast.error(error?.response?.data?.message)
      }
 })
+export const GetUserProfile=createAsyncThunk("get/user/profile",async ()=>{
+  
+  try {
+    const response=axiosInstance.get("/user/profile")
+    toast.promise(response,{
+       loading:"Wait !",
+       success:((res)=>{
+          return res?.data?.message
+       }),
+       error:"Not get your profile"
+    })
+    return (await response).data
+  } catch (error) {
+     toast.error(error.message)
+  }
+  
+})
 const authSlice=createSlice({
   name:"authSlice",
   initialState,
   reducers:{},
   extraReducers:(builder)=>{
+
+    builder.addCase(GetUserProfile.fulfilled,(state,action)=>{
+        localStorage.setItem("data",action?.payload?.data)
+        state.data=action?.payload?.data
+    })
+   
     builder.addCase(Loginmethod.fulfilled,(state,action)=>{
         localStorage.setItem("isLoggedIn",true)
         localStorage.setItem("role",action?.payload?.data?.role)
@@ -72,6 +94,7 @@ const authSlice=createSlice({
         state.role=action?.payload?.data?.role
         state.isLoggedIn=true;
     })
+
     builder.addCase(logoutmethod.fulfilled,(state,action)=>{
         localStorage.setItem("isLoggedIn",false)
         localStorage.setItem("role","")

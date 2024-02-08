@@ -73,10 +73,11 @@ function SignUp() {
      formData.append("avatar",signUpData.avatar)
      
      const response=await dispatch(createAccount(formData))
-     console.log(response);
+     
       if (response?.payload?.success) {
         navigate("/")
       }
+      
      setSignUpData({
       fullName: "",
       email: "",

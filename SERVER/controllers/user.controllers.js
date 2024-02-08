@@ -125,7 +125,7 @@ const profile = async (req, res, next) => {
 
     res.status(202).json({
       success: true,
-      message: "user Details",
+      message: " this is user Details",
       data: user,
     });
   } catch (error) {

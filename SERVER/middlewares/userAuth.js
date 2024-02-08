@@ -11,6 +11,8 @@ const isLoggedIn= async (req,res,next)=>{
         req.user=userDetail;
         next()
     };
+
+
 const authrizedRoll= (...roles)=> async (req,res,next)=>{
        const currentUserRole=req.user.role ;   
        if (!roles.includes(currentUserRole)) {
@@ -21,3 +23,4 @@ const authrizedRoll= (...roles)=> async (req,res,next)=>{
     };
 
     export  {isLoggedIn,authrizedRoll};
+    

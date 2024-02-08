@@ -12,7 +12,7 @@ function Homepage() {
                      Find out best <span className='text-yellow-500'>Online course</span>
                   </h1>
                   <p>
-                    We have large library of courses taught by highly skilled faculties at a very affordable cost
+                     We have large library of courses taught by highly skilled faculties at a very affordable cost
                   </p>
                   <div className='space-x-4'>
                       <Link to={"/courses"}>

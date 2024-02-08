@@ -27,8 +27,6 @@ function SignUp() {
       [name]: value,
     });
   }
-
-
   function GetImage(e) {
      e.preventDefault();
      const uploadedImage=e.target.files[0]
@@ -39,7 +37,7 @@ function SignUp() {
           avatar:uploadedImage
         });
 
-        // we can do this for to collect the metadata of tthe image
+        // we can do this for to collect the metadata of the image
 
         const fileReader=new FileReader()
         fileReader.readAsDataURL(uploadedImage);
@@ -79,8 +77,6 @@ function SignUp() {
       if (response?.payload?.success) {
         navigate("/")
       }
-
-
      setSignUpData({
       fullName: "",
       email: "",

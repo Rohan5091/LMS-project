@@ -19,7 +19,6 @@ const register = async function (req, res, next) {
     return next(new ApiError(409, "Every field is required"));
   }
 
-  
   const valid = emailValidator.validate(email);
   if (!valid) {
     return next(new ApiError(409, "Enter a valid email id"));
@@ -68,7 +67,7 @@ const register = async function (req, res, next) {
   } catch (error) {
     return next(new ApiError(409, error.message)); 
   }
-    await user.save();
+  await user.save();
   user.password = undefined;
 
   const token = await user.generateJWTtoken();
@@ -84,7 +83,6 @@ const register = async function (req, res, next) {
 const login = async (req, res, next) => {
   const { email, password } = req.body;
   
-  console.log( "server",email, password);
   if (!email || !password) {
     return next(new ApiError(409, "Every field is required"));
   }

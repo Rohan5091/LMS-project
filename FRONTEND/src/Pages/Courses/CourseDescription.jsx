@@ -5,19 +5,20 @@ import { useSelector } from "react-redux";
 
 
 function CourseDescription() {
-   const {state}=useLocation()
+  const {state}=useLocation()
   const {data,role}=useSelector((state)=>state?.auth)
-  
   return (
     <Homelayout>
     <div className="min-w-[90vw] flex pt-12 px-20 text-white flex-col justify-center items-center">
        <div className="grid grid-cols-2 gap-10 py-10 relative">
           <div className="space-y-5 mx-auto ">
-             <img 
-              src={state?.thumbnail?.secure_url}
-              alt="thumbnail"
-              className="w-96"
+             <div className="h-52">
+               <img 
+                 src={state?.thumbnail?.secure_url}
+                 alt="thumbnail"
+                 className="w-96 "
               />
+             </div>
               <div className="space-y-4">
                  <div className="flex  flex-col justify-between items-center text-xl">
                     <p className="font-semibold">
@@ -48,7 +49,7 @@ function CourseDescription() {
 
           </div>
           <div className="space-y-3 text-xl  w-[60%]">
-             <h1 className="text-3xl  font-bold text-yellow-500 mb-5 text-center">
+             <h1 className="text-3xl  font-bold text-yellow-500 mb-5">
                 {state.title}
              </h1>
              <p className=" text-yellow-500 font-semibold">Course description</p>

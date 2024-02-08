@@ -63,6 +63,11 @@ function Homelayout({children}) {
               </Link>
             </li>
             <li>
+              <Link to={"/course/create"}>
+                 <span className="text-lg ">Create course</span>
+              </Link>
+            </li>
+            <li>
               <Link to={"/contact"}>
                  <span className="text-lg ">Contact</span>
               </Link>

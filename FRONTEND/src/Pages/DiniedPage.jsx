@@ -11,4 +11,4 @@ function DiniedPage() {
   )
 }
 
-export default DiniedPage
+export default DiniedPage 

@@ -21,6 +21,29 @@ const initialState={
         toast.error(error?.response?.data?.message)
      }
  })
+
+export const CreateNewCourse=createAsyncThunk ("create/course", async (formData)=>{
+   try {
+     
+       console.log( "formData",formData);
+
+       const response=axiosInstance.post("/courses",formData)
+       toast.promise(response,{
+          loading:"wait! course is creating",
+          success:((data)=>{
+             return data?.data?.message
+          }),
+          error:"course is not creating"
+       })
+       
+       return (await response).data.data
+
+   } catch (error) {
+      toast.error(error?.message)
+   }
+})
+
+
  const CourseSlice=createSlice({
   name:"CourseSlice",
   initialState,

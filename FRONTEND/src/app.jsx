@@ -10,6 +10,8 @@ import CoursesList from './Pages/Courses/CoursesList'
 import Contact from './Pages/Contact'
 import DiniedPage from './Pages/DiniedPage'
 import CourseDescription from './Pages/Courses/CourseDescription'
+import RequireAuth from './Pages/RequireAuth'
+import CreateCourse from './Pages/Courses/CreateCourse'
 
 export default function App() {
 
@@ -22,8 +24,10 @@ export default function App() {
         <Route path='/courses' element={<CoursesList/>}/>
         <Route path='/contact' element={<Contact/>}/>
         <Route path='/dinied' element={<DiniedPage/>}/>
+        <Route element={<RequireAuth allowedRoles={["ADMIN"]}/>}>
+            <Route path='/course/create' element={<CreateCourse/>}/>
+        </Route>
         <Route path='/course/description' element={<CourseDescription/>}/>
-
         <Route path='*' element={<NotFoundPage/>}/>
       </Routes>
   )

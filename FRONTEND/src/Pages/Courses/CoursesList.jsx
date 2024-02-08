@@ -8,12 +8,11 @@ import CourseCard from "../../components/CourseCard.jsx"
 function CoursesList() {
 
   const {coursedata}=useSelector((state)=>state?.course)
- 
   const dispatch=useDispatch()
   async function LoadCourses() {
-     await dispatch( GetAllCourses())
+     await dispatch(GetAllCourses())
   }
-
+  console.log(coursedata);
   useEffect(()=>{
     LoadCourses()
   },[])
@@ -24,11 +23,10 @@ function CoursesList() {
              Explore all courses made by <span className="font-bold text-yellow-500">Industry experts</span>
          </h1>
          <div className="flex flex-wrap gap-4 p-10">
-             {coursedata.map((course)=>{
+             {coursedata?.map((course)=>{
                 return <CourseCard key={course._id} data={course}/>
              })}   
          </div>
-
     </div>
     </Homelayout>
   )

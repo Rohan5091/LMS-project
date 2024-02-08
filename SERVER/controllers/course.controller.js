@@ -36,6 +36,7 @@ const getLecturesByCourseId = async (req, res, next) => {
     return next(new ApiError(409, error.message));
   }
 };
+
 const createCourse = async (req, res, next) => {
   const { title, description, category, createdBy } = req.body;
 
@@ -43,23 +44,23 @@ const createCourse = async (req, res, next) => {
     return next(new ApiError(409, "Every field is required"));
   }
 
+  const course = await Course.create({
+    title,
+    description,
+    category,
+    createdBy,
+    thumbnail: {
+      public_id: "dummi",
+      secure_url: "dummi",
+    },
+  });
+  if (!course) {
+    return next(new ApiError(409, "Course is not created"));
+  }
+  
+  console.log( "file image",req.file);
+
   if (req.file) {
-    const course = await Course.create({
-      title,
-      description,
-      category,
-      createdBy,
-      thumbnail: {
-        public_id: "dummi",
-        secure_url: "dummi",
-      },
-      // lectures:null
-    });
-
-    if (!course) {
-      return next(new ApiError(409, "Course is not created"));
-    }
-
     await cloudinary.v2.uploader.upload(
       req.file.path,
       {
@@ -75,16 +76,16 @@ const createCourse = async (req, res, next) => {
         }
       }
     );
-    await course.save();
-
-    fs.rm(`uploads/${req.file.filename}`);
-
-    return res.status(200).json({
-      success: true,
-      message: "Course details are added successfully",
-      data: course,
-    });
   }
+  await course.save();
+
+    // fs.rm(`uploads/${req.file.filename}`);
+
+  return res.status(200).json({
+    success: true,
+    message: "Course details are added successfully",
+    data: course,
+  });
 };
 const UpdateCourse = async (req, res, next) => {
   try {
@@ -174,30 +175,28 @@ const addLectureByCourseId = async (req, res, next) => {
     data: course,
   });
 };
-const removeLectureByLectureId= async (req,res,next)=>{
-      const {courseId,lectureId}=req.params;
-      
-      const course= await Course.findById(courseId)
-      if(!course){
-         return next(new ApiError(500, "course is not exist"));   
-      }
+const removeLectureByLectureId = async (req, res, next) => {
+  const { courseId, lectureId } = req.params;
 
-      const index=course.lectures.indexOf(lectureId)
+  const course = await Course.findById(courseId);
+  if (!course) {
+    return next(new ApiError(500, "course is not exist"));
+  }
 
-      if (!index) {
-         return next(new ApiError(500, "lecture is not exist"));     
-      }
-       
-      course.lectures.splice(index,1)
+  const index = course.lectures.indexOf(lectureId);
 
-      await course.save()
+  if (!index) {
+    return next(new ApiError(500, "lecture is not exist"));
+  }
 
+  course.lectures.splice(index, 1);
 
-       return res.status(200).json({
-        success: true,
-        message: "lecture is removed successfully",
-      });
-      
+  await course.save();
+
+  return res.status(200).json({
+    success: true,
+    message: "lecture is removed successfully",
+  });
 };
 
 export {
@@ -207,5 +206,5 @@ export {
   UpdateCourse,
   removeCourse,
   addLectureByCourseId,
-  removeLectureByLectureId
+  removeLectureByLectureId,
 };

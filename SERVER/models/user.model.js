@@ -25,9 +25,9 @@ const userSchema = new Schema(
     },
     password: {
       type: String,
-      required: ["true", "password must be required"],
+      // required: ["true", "password must be required"],
       select: false,
-      minlength: [5, "Password must contain atleast 5 charactors"],
+      // minlength: [5, "Password must contain atleast 5 charactors"],
     },
     avatar:{
       public_id: {

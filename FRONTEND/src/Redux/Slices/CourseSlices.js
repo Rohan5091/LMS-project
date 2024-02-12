@@ -24,8 +24,6 @@ const initialState={
 
 export const CreateNewCourse=createAsyncThunk ("create/course", async (formData)=>{
    try {
-     
-       console.log( "formData",formData);
 
        const response=axiosInstance.post("/courses",formData)
        toast.promise(response,{

@@ -12,6 +12,6 @@ userRoute.post("/forgot_password",forgotPassword)
 userRoute.post("/reset_password/:resetToken",resetPassword)
 userRoute.get("/profile",isLoggedIn,profile)
 userRoute.post("/change_password",isLoggedIn,changePassword)
-userRoute.put("/update_profile",isLoggedIn,upload.single('avatar'),updateProfile)
+userRoute.put("/update/profile",isLoggedIn,upload.single('avatar'),updateProfile)
 
 export default userRoute;

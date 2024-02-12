@@ -236,7 +236,7 @@ const changePassword = async function (req, res, next) {
 const updateProfile = async (req, res, next) => {
    const id = req.user.id;
   
-  const {fullName,role}= req.body;
+  const {fullName}= req.body;
 
   const user = await User.findById(id);
   
@@ -247,10 +247,7 @@ const updateProfile = async (req, res, next) => {
 
   if (fullName) {
     user.fullName = fullName;
-    user.role=role
-   
   }
-
   if (req.file) {
     await cloudinary.v2.uploader.destroy(user.avatar.public_id);
     try {
@@ -264,7 +261,7 @@ const updateProfile = async (req, res, next) => {
       if (result) {
         user.avatar.public_id = result.public_id;
         user.avatar.secure_url = result.secure_url;
-        //fs.rm(`uplouds/${req.file.filename}`);
+        fs.rm(`uplouds/${req.file.filename}`);
       }
     } catch (error) {
       return next(

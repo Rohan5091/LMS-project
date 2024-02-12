@@ -62,19 +62,34 @@ export const GetUserProfile=createAsyncThunk("get/user/profile",async ()=>{
   
   try {
     const response=axiosInstance.get("/user/profile")
-    toast.promise(response,{
-       loading:"Wait !",
-       success:((res)=>{
-          return res?.data?.message
-       }),
-       error:"Not get your profile"
-    })
     return (await response).data
   } catch (error) {
      toast.error(error.message)
   }
   
 })
+export const updateProfile=createAsyncThunk("user/updateProfile" ,async (data)=>{
+     try {
+      const formData=new FormData()
+      formData.append("fullName",data.fullName)
+      formData.append("avatar",data.avatar)
+
+        const response =axiosInstance.put("/user/update/profile",formData)
+        
+        toast.promise(response,{
+         loading:"wait! profile update in process",
+         success:((d)=>{
+           return d?.data?.message;
+         }),
+         error:"profile updation failed"
+      }
+      )
+        return ( await response).data
+     } catch (error) {
+         toast.error(error.message)
+     } 
+})
+
 const authSlice=createSlice({
   name:"authSlice",
   initialState,

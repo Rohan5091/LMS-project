@@ -21,7 +21,6 @@ function SignUp() {
  
   function handelformdata(e) {
     const { name, value } = e.target;
-
     setSignUpData({
       ...signUpData,
       [name]: value,

@@ -53,13 +53,15 @@ function handleInput(e) {
   if (!inputData.category || !inputData.createdBy || !inputData.description  ||  !inputData.title || !inputData.thumbnail )  {
      toast.error("Every field is required")
   }
-  const formData={
-   title:inputData.title, 
-   description:inputData.description, 
-   category:inputData.category, 
-   createdBy:inputData.createdBy, 
-   thumbnail:inputData.thumbnail, 
-}
+
+const formData=new FormData()
+
+formData.append("title",inputData.title)
+formData.append("description",inputData.description)
+formData.append("category",inputData.category)
+formData.append("createdBy",inputData.createdBy)
+formData.append("thumbnail",inputData.thumbnail)
+
   const response=await dispatch(CreateNewCourse(formData))
   if (response?.payload) {
      setInputData({

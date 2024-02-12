@@ -35,7 +35,7 @@ function Homelayout({children}) {
                <IoMenu size={"50px"} onClick={opensideBar} />
             </label>
           </div>
-        <div className="drawer-side w-0 max-w-fit transition-all delay-500 ease-out ">
+        <div className="drawer-side w-0 max-w-fit z-50 transition-all delay-500 ease-out ">
           <label
             htmlFor="my-drawer"
             aria-label="close sidebar"
@@ -98,7 +98,7 @@ function Homelayout({children}) {
                       </Link>
                     </li>
                     <li>
-                      <Link to={"/profile"}>
+                      <Link to={"/user/profile"}>
                         <span className="text-lg bg-green-600 border rounded-md px-3">Profile</span>
                       </Link>
                     </li>

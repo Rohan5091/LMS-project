@@ -16,11 +16,19 @@ const isLoggedIn= async (req,res,next)=>{
 const authrizedRoll= (...roles)=> async (req,res,next)=>{
        const currentUserRole=req.user.role ;   
        if (!roles.includes(currentUserRole)) {
-           return next(new ApiError(400, "You do not have Permision Access this route"));
-           next()                 
+           return next(new ApiError(400, "You do not have Permision Access this route"));              
        }
        next()
     };
 
-    export  {isLoggedIn,authrizedRoll};
+const authrizedSubscriber= async (req,res,next)=>{
+       const currentUserRole=req.user.role ;   
+       const subscription=req.user.subscription; 
+       if (currentUserRole!=="ADMIN" || subscription.status!=="active") {
+        return next(new ApiError(400, "You do not have Permision Access this route"));
+       }   
+       next()
+    };
+
+    export  {isLoggedIn,authrizedRoll,authrizedSubscriber};
     

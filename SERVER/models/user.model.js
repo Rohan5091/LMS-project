@@ -43,9 +43,8 @@ const userSchema = new Schema(
       default: "USER",
     },
     subscription:{
-      type: String,
-      enum: ["YES", "NO"],
-      default: "NO",
+      id: String,
+      status:String
     },
 
     forgotPasswordToken: {

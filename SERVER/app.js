@@ -5,6 +5,7 @@ import cors from "cors";
 import userRoute from "./routers/user.route.js"
 import errorMiddleware from "./middlewares/error.middlewares.js";
 import courseRoute from "./routers/course.route.js";
+import paymentRoute from "./routers/payment.routs.js";
 
 const app=express();
  
@@ -30,6 +31,7 @@ app.use(express.static("public"));
 
 
 app.use("/api/v1/user/",userRoute);
+app.use("/api/v1/payment/",paymentRoute);
 app.use("/api/v1/courses",courseRoute);
 
 app.use("/",(req,res)=>{

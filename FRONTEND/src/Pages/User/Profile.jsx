@@ -24,13 +24,13 @@ function Profile() {
             alt="avatar"
           />
           <h3 className="text-3xl font-bold capitalize text-yellow-500">
-            {userData.fullName}
+            {userData?.fullName}
           </h3>
           <div className="grid grid-cols-2">
             <p className="text-yellow-500 text-xl font-semibold">Email</p>{" "}
-            <p className="text-lg">{userData.email}</p>
+            <p className="text-lg">{userData?.email}</p>
             <p className="text-yellow-500 text-xl font-semibold">Role</p>{" "}
-            <p className="text-sm">{userData.role}</p>
+            <p className="text-sm">{userData?.role}</p>
             <p className="text-yellow-500 text-xl font-semibold">
               subscription
             </p>{" "}

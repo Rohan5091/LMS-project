@@ -12,6 +12,7 @@ export const GetRazorpayKey= async (req,res,next)=>{
     };
 
 export const buySubscription= async (req,res,next)=>{
+  try {
         const {id}=req.user
         const user = await User.findById(id)
 
@@ -23,12 +24,14 @@ export const buySubscription= async (req,res,next)=>{
           return next( new ApiError(400,"You Don't need to subscribe"))
         }
         
-        try {
+    
             const subscription= await razorpay.subscriptions.create({
                plan_id:process.env.RAYZORPAY_PLAN_ID,
-               customer_notify:1
+               customer_notify:1,
+               total_count:1,
+               expire_by: Math.floor(Date.now() / 1000) + (30 * 24 * 60 * 60),
             })
-            
+           
             user.subscription.id=subscription.id
             user.subscription.status=subscription.status
 
@@ -99,8 +102,8 @@ export const cancelSubscription= async (req,res,next)=>{
           const subscription= await razorpay.subscriptions.cancel(
              subscriptionId
           )
-          user.subscription.status=subscription.status
-          user.subscription.id=undefined
+          user.subscription.status=subscription.status;
+          user.subscription.id=subscription.id;
           await user.save()
 
           return res.status(200).json({

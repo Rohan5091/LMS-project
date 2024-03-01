@@ -2,8 +2,21 @@ import React from 'react'
 import Homelayout from "../Layouts/Homelayout.jsx"
 import { Link } from 'react-router-dom'
 import homepageImage from "../assets/Images/homePageMainImage.png"
+import { useDispatch } from 'react-redux'
+import { useEffect } from 'react'
+import { GetUserProfile } from '../Redux/Slices/AuthSlices.js'
+
 
 function Homepage() {
+   const dispatch=useDispatch()
+  
+  async function loaddata() {
+    await dispatch(GetUserProfile())
+ }
+
+  useEffect(()=>{
+     loaddata()
+  },[])
   return (
      <Homelayout>
           <div className='flex flex-col sm:flex-row items-center sm:justify-center lg:mb-44 lg:pt-12  my-6 '>

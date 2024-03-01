@@ -43,8 +43,12 @@ const userSchema = new Schema(
       default: "USER",
     },
     subscription:{
-      id: String,
-      status:String
+      id: {
+        type: String,
+      },
+      status:{
+        type: String,
+      }
     },
 
     forgotPasswordToken: {

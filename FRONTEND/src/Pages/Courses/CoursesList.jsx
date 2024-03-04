@@ -12,7 +12,7 @@ function CoursesList() {
   async function LoadCourses() {
      await dispatch(GetAllCourses())
   }
-  console.log(coursedata);
+ 
   useEffect(()=>{
     LoadCourses()
   },[])
@@ -24,7 +24,7 @@ function CoursesList() {
          </h1>
          <div className="flex flex-wrap gap-4 p-10">
              {coursedata?.map((course)=>{
-                return <CourseCard key={course._id} data={course}/>
+                return <CourseCard key={course._id} courseId={course._id} data={course}/>
              })}   
          </div>
     </div>

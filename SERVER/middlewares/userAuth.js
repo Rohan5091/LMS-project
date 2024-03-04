@@ -1,3 +1,4 @@
+import User from "../models/user.model.js";
 import ApiError from "../utills/error.utills.js"
 import jwt from "jsonwebtoken"
 
@@ -22,13 +23,14 @@ const authrizedRoll= (...roles)=> async (req,res,next)=>{
     };
 
 const authrizedSubscriber= async (req,res,next)=>{
-       const currentUserRole=req.user.role ;   
-       const subscription=req.user.subscription; 
-       if (currentUserRole!=="ADMIN" || subscription.status!=="active") {
+       const user= await User.findById(req.user.id)
+       const currentUserRole=user.role ;   
+       const subscription=user.subscription; 
+       if (currentUserRole!=="ADMIN" && subscription.status!=="active") {
         return next(new ApiError(400, "You do not have Permision Access this route"));
        }   
        next()
-    };
+    }
 
     export  {isLoggedIn,authrizedRoll,authrizedSubscriber};
     

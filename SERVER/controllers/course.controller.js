@@ -119,7 +119,7 @@ const UpdateCourse = async (req, res, next) => {
 const removeCourse = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const course = Course.findById(id);
+    const course =await Course.findById(id);
 
     if (!course) {
       return next(new ApiError(500, "course is not exist"));

@@ -121,7 +121,6 @@ const logout = async (req, res) => {
 const profile = async (req, res, next) => {
   try {
     const userId = req.user.id;
-    console.log(userId);
     const user = await User.findById(userId);
 
     res.status(202).json({

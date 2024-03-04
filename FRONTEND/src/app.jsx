@@ -40,7 +40,7 @@ export default function App() {
             <Route path='/checkout/success' element={<CheckoutSuccess/>}/>
             <Route path='/checkout/fail' element={<CheckoutFail/>}/>
         </Route>
-        <Route path='/course/description' element={<CourseDescription/>}/>
+        <Route path='/course/description/:courseId' element={<CourseDescription/>}/>
         <Route path='*' element={<NotFoundPage/>}/>
       </Routes>
   )

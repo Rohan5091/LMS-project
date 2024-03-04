@@ -10,7 +10,6 @@ export const GetRazorpayKey= async (req,res,next)=>{
             key:process.env.RAYZORPAY_KEY_ID
         })
     };
-
 export const buySubscription= async (req,res,next)=>{
   try {
         const {id}=req.user
@@ -46,7 +45,6 @@ export const buySubscription= async (req,res,next)=>{
           return next( new ApiError(400,error.message))
         }
     };
-    
 export const verifySubscription= async (req,res,next)=>{
 
       try {
@@ -60,9 +58,10 @@ export const verifySubscription= async (req,res,next)=>{
         const subscriptionId=user.subscription.id
         const generatedSignature=crypto
         .createHmac("sha256",process.env.RAYZORPAY_SECRET) 
-        .update(`${razorpay_payment_id } | ${subscriptionId}`)
+        .update(`${razorpay_payment_id }|${subscriptionId}`)
         .digest("hex")
-        
+       
+       
         if (generatedSignature !== razorpay_signature) {
          return  next(
               new ApiError(500,"Payment not verified please try again later")
@@ -75,10 +74,13 @@ export const verifySubscription= async (req,res,next)=>{
           razorpay_signature
         })
         user.subscription.status="active";
+
         await user.save()
+
         return res.status(200).json({
          success:true,
          message:"Payment verified successfully",
+         data:user
      })
       } catch (error) {
          next( new ApiError(500,error.message))
@@ -86,9 +88,9 @@ export const verifySubscription= async (req,res,next)=>{
 
     };
 export const cancelSubscription= async (req,res,next)=>{
+     try {
         const {id}=req.user;
         const user = await User.findById(id);
-
         if (!user) {
            return next( new ApiError(409,"Unauthorised access"))
         }
@@ -96,14 +98,16 @@ export const cancelSubscription= async (req,res,next)=>{
         if(user?.role=="ADMIN"){
           return next( new ApiError(400,"You Don't need to cancel subscribe"))
         }
-        try {
+     
           
           const subscriptionId=user.subscription.id;
-          const subscription= await razorpay.subscriptions.cancel(
-             subscriptionId
-          )
+          console.log(subscriptionId);
+          const subscription = await razorpay.subscriptions.cancel(
+              subscriptionId 
+          );
+          console.log(subscription);
           user.subscription.status=subscription.status;
-          user.subscription.id=subscription.id;
+          user.subscription.id=subscription?.id || null
           await user.save()
 
           return res.status(200).json({

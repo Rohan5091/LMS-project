@@ -21,6 +21,21 @@ const initialState={
         toast.error(error?.response?.data?.message)
      }
  })
+ export const removeCourseMethod=createAsyncThunk("course/delete",async(courseId)=>{
+     try {
+        const response=axiosInstance.delete(`/courses/${courseId}`)
+        toast.promise(response,{
+          loading:"deleting course",
+          success:((data)=>{
+             return(data?.data?.message)
+          }),
+          error:"Failed to delete the courses"
+        })
+        return (await response).data
+     } catch (error) {
+        toast.error(error?.response?.data?.message)
+     }
+ })
 
 export const CreateNewCourse=createAsyncThunk ("create/course", async (formData)=>{
    try {

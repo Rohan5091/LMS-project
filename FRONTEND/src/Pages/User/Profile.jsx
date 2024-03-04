@@ -3,12 +3,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { GetUserProfile } from "../../Redux/Slices/AuthSlices";
 import Homelayout from "../../Layouts/Homelayout";
 import { Link } from "react-router-dom";
+import { cancelSubscribe } from "../../Redux/Slices/RazorpaySlice";
 
 function Profile() {
   const dispatch = useDispatch();
   const userData = useSelector((state) => state?.auth?.data);
   async function DownloadData() {
     await dispatch(GetUserProfile());
+  }
+  const cancelSubscribemethod= async function () {
+    await dispatch(cancelSubscribe())
+    DownloadData()
   }
   useEffect(() => {
     DownloadData();
@@ -54,7 +59,7 @@ function Profile() {
             </Link>
           </div>
           {userData?.subscription?.status == "active" && (
-            <button className="w-full bg-red-500 border px-2 py-1 transition-all ease-in-out duration-300 rounded-lg hover:bg-red-600">
+            <button onClick={cancelSubscribemethod} className="w-full bg-red-500 border px-2 py-1 transition-all ease-in-out duration-300 rounded-lg hover:bg-red-600">
               {" "}
               Cancel Subscription
             </button>

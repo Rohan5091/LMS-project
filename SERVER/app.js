@@ -32,7 +32,7 @@ app.use(express.static("public"));
 
 app.use("/api/v1/user/",userRoute);
 app.use("/api/v1/payment/",paymentRoute);
-app.use("/api/v1/courses",courseRoute);
+app.use("/api/v1/courses/",courseRoute);
 
 app.use("/",(req,res)=>{
   res.send("Hey I am rohan malakar")   

@@ -1,13 +1,22 @@
-import {  useLocation, useNavigate } from "react-router-dom"
+import {  useLocation, useNavigate, useParams } from "react-router-dom"
 import Homelayout from "../../Layouts/Homelayout"
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { removeCourseMethod } from "../../Redux/Slices/CourseSlices";
 
 
 
 function CourseDescription() {
+  const dispatch=useDispatch()
   const {state}=useLocation()
   const {data,role}=useSelector((state)=>state?.auth)
+  
+  const {courseId}=useParams()
   const navigate=useNavigate()
+
+   async function deleteCourseMethod() {
+      const res=await dispatch(removeCourseMethod(courseId))
+       navigate("/courses")
+  }
   return (
     <Homelayout>
     <div className="min-w-[90vw] flex pt-12 px-20 text-white flex-col justify-center items-center">
@@ -35,7 +44,7 @@ function CourseDescription() {
                         {state?.createdBy}
                     </p>
                     {
-                      role=="ADMIN" || data?.subscription?.status=="ACTIVE" ? (
+                      role=="ADMIN" || data?.subscription?.status=="active" ? (
                         <button className="bg-yellow-500 text-2xl m-4 rounded-md px-5 py-3 w-full hover:bg-yellow-600 transition ease-in-out duration-300 font-bold ">
                             Watch leture
                         </button>
@@ -45,6 +54,14 @@ function CourseDescription() {
                         </button>
                       )
                     }
+                    {
+                      role=="ADMIN" && (
+                        <button onClick={deleteCourseMethod} className="bg-yellow-500 text-2xl m-4 rounded-md px-5 py-3 w-full hover:bg-yellow-600 transition ease-in-out duration-300 font-bold ">
+                            Delete Course
+                        </button>
+                      )
+                    }
+                    
                  </div>
               </div>
 

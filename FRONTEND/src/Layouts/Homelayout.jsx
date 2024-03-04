@@ -97,11 +97,13 @@ function Homelayout({ children }) {
                 <span className="text-lg ">About</span>
               </Link>
             </li>
-            <li>
-              <Link to={"/course/create"}>
-                <span className="text-lg ">Create course</span>
-              </Link>
-            </li>
+            {isLoggedIn && role == "ADMIN" && (
+              <li>
+                <Link to={"/course/create"}>
+                  <span className="text-lg ">Create course</span>
+                </Link>
+              </li>
+            )}
             <li>
               <Link to={"/contact"}>
                 <span className="text-lg ">Contact</span>

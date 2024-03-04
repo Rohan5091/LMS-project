@@ -99,8 +99,17 @@ const authSlice=createSlice({
     builder.addCase(GetUserProfile.fulfilled,(state,action)=>{
         localStorage.setItem("data",action?.payload?.data)
         state.data=action?.payload?.data
+        state.role=action?.payload?.data?.role
     })
    
+    builder.addCase(createAccount.fulfilled,(state,action)=>{
+        localStorage.setItem("isLoggedIn",true)
+        localStorage.setItem("role",action?.payload?.data?.role)
+        localStorage.setItem("data",action?.payload?.data)
+        state.data=action?.payload?.data
+        state.role=action?.payload?.data?.role
+        state.isLoggedIn=true;
+    })
     builder.addCase(Loginmethod.fulfilled,(state,action)=>{
         localStorage.setItem("isLoggedIn",true)
         localStorage.setItem("role",action?.payload?.data?.role)

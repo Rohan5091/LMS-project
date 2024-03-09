@@ -8,6 +8,7 @@ import { removeCourseMethod } from "../../Redux/Slices/CourseSlices";
 function CourseDescription() {
   const dispatch=useDispatch()
   const {state}=useLocation()
+  
   const {data,role}=useSelector((state)=>state?.auth)
   
   const {courseId}=useParams()
@@ -45,11 +46,11 @@ function CourseDescription() {
                     </p>
                     {
                       role=="ADMIN" || data?.subscription?.status=="active" ? (
-                        <button className="bg-yellow-500 text-2xl m-4 rounded-md px-5 py-3 w-full hover:bg-yellow-600 transition ease-in-out duration-300 font-bold ">
+                        <button onClick={()=> navigate(`/course/${state._id}/displaylectures`,{state:{...state}})} className="bg-yellow-500 text-2xl m-4 rounded-md px-5 py-3 w-full hover:bg-yellow-600 transition ease-in-out duration-300 font-bold ">
                             Watch leture
                         </button>
                       ):(
-                        <button onClick={()=> navigate("/checkout")} className="bg-yellow-500 m-4 text-2xl rounded-md px-5 py-1 w-full hover:bg-yellow-600 transition hover:text-black ease-in-out duration-300 font-bold ">
+                        <button onClick={()=> navigate("/checkout")}  className="bg-yellow-500 m-4 text-2xl rounded-md px-5 py-1 w-full hover:bg-yellow-600 transition hover:text-black ease-in-out duration-300 font-bold ">
                            subscribe
                         </button>
                       )
@@ -79,4 +80,4 @@ function CourseDescription() {
   )
 }
 
-export default CourseDescription
+export default CourseDescription;

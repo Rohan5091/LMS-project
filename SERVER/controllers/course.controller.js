@@ -30,7 +30,7 @@ const getLecturesByCourseId = async (req, res, next) => {
     return res.status(200).json({
       success: true,
       message: "this is lectures details",
-      data: course.lectures,
+      lectures: course.lectures,
     });
   } catch (error) {
     return next(new ApiError(409, error.message));
@@ -135,10 +135,10 @@ const removeCourse = async (req, res, next) => {
   }
 };
 const addLectureByCourseId = async (req, res, next) => {
-  const { id } = req.params;
+  const { courseId } = req.params;
   const { description, title } = req.body;
 
-  let course = await Course.findById(id);
+  let course = await Course.findById(courseId);
 
   if (!course) {
     return next(new ApiError(500, "course is not exist"));
@@ -177,7 +177,7 @@ const addLectureByCourseId = async (req, res, next) => {
   });
 };
 const removeLectureByLectureId = async (req, res, next) => {
-  const { courseId, lectureId } = req.params;
+  const { courseId, lectureId } = req.query;
 
   const course = await Course.findById(courseId);
   if (!course) {

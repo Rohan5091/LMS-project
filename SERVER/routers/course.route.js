@@ -10,6 +10,7 @@ const courseRouter=Router();
 courseRouter.route("/")
 .get(getAllCourses)
 .post(isLoggedIn,authrizedRoll("ADMIN"),upload.single("thumbnail"),createCourse)
+.delete(isLoggedIn,authrizedRoll("ADMIN"),removeLectureByLectureId)
 
 courseRouter.route("/:id")
 .get(isLoggedIn,authrizedSubscriber,getLecturesByCourseId)
@@ -17,7 +18,6 @@ courseRouter.route("/:id")
 .put(isLoggedIn,authrizedRoll("ADMIN"),UpdateCourse)
 .post(isLoggedIn,authrizedRoll("ADMIN"),upload.single("lecture"),addLectureByCourseId)
 
-courseRouter.route("/:courseId/lecture/:lectureId")
-.delete(isLoggedIn,authrizedRoll("ADMIN"),removeLectureByLectureId)
+
 
 export default courseRouter;

@@ -2,34 +2,37 @@ import { useDispatch, useSelector } from "react-redux";
 import Homelayout from "../../Layouts/Homelayout";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { GetAllCourseLectures } from "../../Redux/Slices/LectureSlice";
+import { GetAllCourseLectures, RemoveLecture } from "../../Redux/Slices/LectureSlice";
 
 function DisplayLectures() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { state } = useLocation();
-  const lectures = useSelector((state) => {
-    state.lecture;
-  });
+  const {lectures} = useSelector((state) => state?.lecture);
+ 
   const { role } = useSelector((state) => state.auth);
   const [currentLecture, setCurrentLecture] = useState(0);
 
   async function onLectureDelete(courseId, lectureId) {
+    console.log(courseId, lectureId);
     if (!courseId || !lectureId) {
       return;
     }
     await dispatch(RemoveLecture(courseId, lectureId));
     await dispatch(GetAllCourseLectures(courseId));
   }
+   async function GetAllcourse() {
+   await  dispatch(GetAllCourseLectures(state._id));
+  }
 
   useEffect(() => {
     if (!state) {
       navigate("/courses");
     }
-    dispatch(GetAllCourseLectures(state._id));
     // if (!lectures) {
     //   navigate(`course/${state?._id}/addlecture`)
     // }
+    GetAllcourse()
   }, []);
   return (
     <Homelayout>
@@ -54,7 +57,7 @@ function DisplayLectures() {
                   {lectures && lectures[currentLecture]?.title}
                 </h1>
                 <p>
-                  <span className="text-yellow-500 line-clamp-2">
+                  <span className="text-yellow-500 ">
                     Description :{"  "}
                   </span>
                   {lectures && lectures[currentLecture]?.description}
@@ -66,9 +69,9 @@ function DisplayLectures() {
                 <p className="">Lecture list</p>
                 {role === "ADMIN" && (
                   <button
-                    onClick={navigate(`/course/${state?._id}/addlecture`, {
+                    onClick={()=>{navigate(`/course/${state?._id}/addlecture`, {
                       state: { ...state },
-                    })}
+                    })}}
                     className="btn btn-active ml-5 btn-primary "
                   >
                     Add new lecture
@@ -85,7 +88,7 @@ function DisplayLectures() {
                       >
                         <span>
                           {" "}
-                          Lecture {idx + 1}:{"  "}
+                          Lecture {idx + 1} :{"  "}
                         </span>
                       </p>
                       {role === "ADMIN" && (
@@ -107,9 +110,9 @@ function DisplayLectures() {
       )}
         {role === "ADMIN" && !lectures && (
           <button
-            onClick={navigate(`/course/${state?._id}/addlecture`, {
+            onClick={()=>{()=>{navigate(`/course/${state?._id}/addlecture`, {
               state: { ...state },
-            })}
+            })}}}
             className="btn btn-active ml-5"
           >
             Add new lecture

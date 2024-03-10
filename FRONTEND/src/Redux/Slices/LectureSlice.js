@@ -9,7 +9,6 @@ const initialState={
  export const GetAllCourseLectures=createAsyncThunk("get/alllecture", async function (courseId) {
       try {
           const response=axiosInstance.get(`courses/${courseId}`)
-          console.log(response);
           toast.promise(response,{
              loading:"Wait!! loading lectures",
              success:((data)=>{
@@ -24,6 +23,7 @@ const initialState={
  })
  export const UploadLectures=createAsyncThunk("add/lecture", async function (lectureData) {
       try {
+          
           const lectureDataForm=new FormData()
           lectureDataForm.append("lecture",lectureData.lecture)
           lectureDataForm.append("title",lectureData.title)
@@ -44,7 +44,7 @@ const initialState={
  })
  export const RemoveLecture=createAsyncThunk("delete/lecture", async function (courseId,lectureId) {
       try {
-          const response=axiosInstance.get(`courses?courseId=${courseId}&lectureId=${lectureId}`)
+          const response=axiosInstance.delete(`courses?courseId=${courseId}&lectureId=${lectureId}`)
           toast.promise(response,{
              loading:"Wait!! removing lecture",
              success:((data)=>{
@@ -65,11 +65,11 @@ const LectureSlice=createSlice({
     initialState,
     reducers:{},
     extraReducers:((builder)=>{
-       builder.addCase(GetAllCourseLectures.fulfilled, async function (state,action) {
+       builder.addCase(GetAllCourseLectures.fulfilled,function (state,action) {
             state.lectures=action.payload?.lectures
        })
-       builder.addCase(UploadLectures.fulfilled, async function (state,action) {
-            state.lectures=action.payload?.course?.lectures
+       builder.addCase(UploadLectures.fulfilled,function (state,action) {
+            state.lectures=[...action.payload?.data?.lectures]
        })
     })
 })

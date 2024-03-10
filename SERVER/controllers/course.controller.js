@@ -135,46 +135,53 @@ const removeCourse = async (req, res, next) => {
   }
 };
 const addLectureByCourseId = async (req, res, next) => {
-  const { courseId } = req.params;
-  const { description, title } = req.body;
-
-  let course = await Course.findById(courseId);
-
-  if (!course) {
-    return next(new ApiError(500, "course is not exist"));
-  }
-
-  let lecturesData = {
-    description,
-    title,
-    lecture: {},
-  };
-  if (req.file) {
-    await cloudinary.v2.uploader.upload(
-      req.file.path,
-      {
-        folder: "LMS",
-      },
-      (error, result) => {
-        if (error) {
-          return next(new ApiError(409, "lecture is not uploaded"));
+  try {
+    
+    const { id } = req.params;
+    const { description, title } = req.body;
+  
+    let course = await Course.findById(id);
+  
+    if (!course) {
+      return next(new ApiError(500, "course is not exist"));
+    }
+  
+    let lecturesData = {
+      description,
+      title,
+      lecture: {},
+    };
+    if (req.file) {
+      await cloudinary.v2.uploader.upload(
+        req.file.path,
+        {
+          folder: "LMS",
+          resource_type:"video",
+          chunk_size:50000000
+        },
+        (error, result) => {
+          if (error) {
+            return next(new ApiError(409, "lecture is not uploaded"));
+          }
+          if (result) {
+            lecturesData.lecture.public_id = result.public_id;
+            lecturesData.lecture.secure_url = result.secure_url;
+          }
         }
-        if (result) {
-          lecturesData.lecture.public_id = result.public_id;
-          lecturesData.lecture.secure_url = result.secure_url;
-        }
-      }
-    );
+      );
+    }
+    course.lectures.push(lecturesData);
+    course.numbersOfLecture = course.lectures.length;
+    await course.save();
+  
+    return res.status(200).json({
+      success: true,
+      message: "lectures are added successfully",
+      data: course,
+    });
+  } catch (error) {
+    return next(new ApiError(409, error.message));
   }
-  course.lectures.push(lecturesData);
-  course.numbersOfLecture = course.lectures.length;
-  await course.save();
-
-  return res.status(200).json({
-    success: true,
-    message: "lectures are added successfully",
-    data: course,
-  });
 };
 const removeLectureByLectureId = async (req, res, next) => {
   const { courseId, lectureId } = req.query;

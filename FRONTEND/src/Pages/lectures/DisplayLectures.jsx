@@ -9,6 +9,7 @@ function DisplayLectures() {
   const navigate = useNavigate();
   const { state } = useLocation();
   const {lectures} = useSelector((state) => state?.lecture);
+  console.log(lectures);
  
   const { role } = useSelector((state) => state.auth);
   const [currentLecture, setCurrentLecture] = useState(0);
@@ -29,18 +30,18 @@ function DisplayLectures() {
     if (!state) {
       navigate("/courses");
     }
-    // if (!lectures) {
-    //   navigate(`course/${state?._id}/addlecture`)
-    // }
     GetAllcourse()
+    if (!lectures) {
+      navigate(`course/${state?._id}/addlecture`)
+    }
   }, []);
   return (
     <Homelayout>
-      {lectures && lectures.length > 0 && (
         <div className="flex flex-col gap-10 items-center justify-center min-h-[90vh] py-10 text-white mx-4 ">
           <div className="text-center text-2xl font-semibold text-yellow-500">
             Course Name:{state?.title}
           </div>
+      {lectures && lectures.length > 0 && (
           <div className="flex justify-center gap-10 w-full">
             <div className="space-y-5 w-[28rem] p-2 rounded-lg shadow-[0_0_10px_yellow]">
               <video
@@ -90,6 +91,7 @@ function DisplayLectures() {
                           {" "}
                           Lecture {idx + 1} :{"  "}
                         </span>
+                       {lecture.title}
                       </p>
                       {role === "ADMIN" && (
                         <button
@@ -106,19 +108,22 @@ function DisplayLectures() {
                 })}
             </ul>
           </div>
-        </div>
-      )}
-        {role === "ADMIN" && !lectures && (
-          <button
-            onClick={()=>{()=>{navigate(`/course/${state?._id}/addlecture`, {
+         )}
+       
+        {role === "ADMIN"  &&  lectures.length==0 && (
+          
+
+            <button
+              onClick={()=>{navigate(`/course/${state?._id}/addlecture`, {
               state: { ...state },
-            })}}}
-            className="btn btn-active ml-5"
-          >
-            Add new lecture
-          </button>
+              })}}
+             className="btn btn-active ml-5"
+             >
+              Add new lecture
+             </button>
+          
         )}
-      
+       </div>
     </Homelayout>
   );
 }

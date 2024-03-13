@@ -1,17 +1,29 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
+import toast from "react-hot-toast"
 
-const initiateState={
+const initialState={
    allUserCount:0,
    subscribedCount:0
 }
 
+const GetStats=createAsyncThunk("/get/stats",async ()=>{
+    try {
+       
+
+      
+    } catch (error) {
+      toast.error(error?.response?.data?.message)
+    }
+
+})
+
 const StatSlice=createSlice({
    name:"state",
-   initiateState,
+   initialState,
    reducers:{},
-   extraReducers:(builder)=>{
+    extraReducers:(builder)=>{
       
-   }
+    }
 
 })
 

@@ -101,11 +101,11 @@ export const cancelSubscription= async (req,res,next)=>{
      
           
           const subscriptionId=user.subscription.id;
-          console.log(subscriptionId);
+          
           const subscription = await razorpay.subscriptions.cancel(
               subscriptionId 
           );
-          console.log(subscription);
+          
           user.subscription.status=subscription.status;
           user.subscription.id=subscription?.id || null
           await user.save()
@@ -124,11 +124,10 @@ export const cancelSubscription= async (req,res,next)=>{
 export const getAllPaymentDetails= async (req,res,next)=>{
 
       try {
-        
         const {count}=req.query()
  
         const subscriptions=await razorpay.subscriptions.all({
-           count:count || 10
+           count:count || 100
         })
          
         return res.status(200).json({

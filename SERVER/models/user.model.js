@@ -63,7 +63,7 @@ const userSchema = new Schema(
   }
 );
 
-// this method is used to save the incrypted password to the db
+
 
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) {
@@ -74,7 +74,7 @@ userSchema.pre("save", async function (next) {
 
 })
 
-// this method for creating the JWT token for the user
+
 
 userSchema.methods = {
   generateJWTtoken: async function () {

@@ -19,6 +19,7 @@ import CheckoutSuccess from './Pages/Payment/CheckoutSuccess'
 import CheckoutFail from './Pages/Payment/CheckoutFail'
 import DisplayLectures from './Pages/lectures/DisplayLectures'
 import AddLecture from './Pages/lectures/AddLecture'
+import Dashboard from './Pages/Admin/Dashboard'
 
 
 export default function App() {
@@ -35,7 +36,7 @@ export default function App() {
         <Route element={<RequireAuth allowedRoles={["ADMIN"]}/>}>
             <Route path='/course/create' element={<CreateCourse/>}/>
             <Route path='/course/:id/addlecture' element={<AddLecture/>}/>
-            
+            <Route path='/admin/dashboard' element={<Dashboard/>}/> 
         </Route>
         <Route element={<RequireAuth allowedRoles={["ADMIN","USER"]}/>}>
             <Route path='/user/profile' element={<Profile/>}/>

@@ -1,6 +1,6 @@
-import User from "../models/user.model";
-import ApiResponse from "../utills/apiresponse";
-import sendMail from "../utills/sendMail.utills";
+import User from "../models/user.model.js";
+import ApiResponse from "../utills/apiresponse.js";
+import sendMail from "../utills/sendMail.utills.js";
 
 export const contactUs = async (req, res, next) => {
   const { name, email, message } = req.body;
@@ -25,16 +25,21 @@ export const contactUs = async (req, res, next) => {
 };
 
 export const userStats = async (req, res, next) => {
-  const allUsersCount = await User.countDocuments();
-
-  const subscribedUsersCount = await User.countDocuments({
-    "subscription.status": "active",
-  });
-
-  res.status(200).json({
-    success: true,
-    message: "All registered users count",
-    allUsersCount,
-    subscribedUsersCount,
-  });
+  try {
+    
+    const allUsersCount = await User.countDocuments();
+  
+    const subscribedUsersCount = await User.countDocuments({
+      "subscription.status": "active",
+    });
+  
+    res.status(200).json({
+      success: true,
+      message: "All registered users count",
+      allUsersCount,
+      subscribedUsersCount,
+    });
+  } catch (error) {
+    return next(new ApiResponse(400, error.message));
+  }
 };

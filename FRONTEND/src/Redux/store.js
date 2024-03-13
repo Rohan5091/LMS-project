@@ -12,7 +12,7 @@ const store=configureStore({
       course:courseSliceReducer,
       razorpay:rayzorpaySliceReducer,
       lecture:LectureSliceReducer,
-      state:StatSliceReducer
+      stat:StatSliceReducer
    },
    devTools:true
 })

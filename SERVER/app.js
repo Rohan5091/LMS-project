@@ -6,6 +6,7 @@ import userRoute from "./routers/user.route.js"
 import errorMiddleware from "./middlewares/error.middlewares.js";
 import courseRoute from "./routers/course.route.js";
 import paymentRoute from "./routers/payment.routs.js";
+import mescellaniousRoute from "./routers/miscellaneous.js";
 
 const app=express();
  
@@ -30,6 +31,7 @@ app.use(express.static("public"));
 
 
 
+app.use("/api/v1/data/",mescellaniousRoute);
 app.use("/api/v1/user/",userRoute);
 app.use("/api/v1/payment/",paymentRoute);
 app.use("/api/v1/courses/",courseRoute);

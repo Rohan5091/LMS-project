@@ -124,8 +124,7 @@ export const cancelSubscription= async (req,res,next)=>{
 export const getAllPaymentDetails= async (req,res,next)=>{
 
       try {
-        const {count}=req.query()
- 
+        const {count}=req.query
         const subscriptions=await razorpay.subscriptions.all({
            count:count || 100
         })

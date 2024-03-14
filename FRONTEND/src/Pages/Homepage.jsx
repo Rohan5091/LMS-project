@@ -39,7 +39,6 @@ function Homepage() {
               <div>
                  <img src={homepageImage} alt="home page image" />
               </div>
-
           </div>
      </Homelayout>
   )

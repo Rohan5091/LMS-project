@@ -7,7 +7,8 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { GetStats } from "../../Redux/Slices/StatSlice";
 import { getPaymentRecord } from "../../Redux/Slices/RazorpaySlice";
-import { GetAllCourses } from "../../Redux/Slices/CourseSlices";
+import { GetAllCourses, removeCourseMethod } from "../../Redux/Slices/CourseSlices";
+import { BsCollectionPlayFill, BsTrash } from "react-icons/bs";
 
 
 ChartJS.register(ArcElement,Tooltip, Legend,CategoryScale,LinearScale,BarElement,Title);
@@ -19,7 +20,7 @@ function Dashboard() {
 
     const {allUserCount,subscribedCount}=useSelector(state=>state?.stat)
     const myCourse=useSelector(state=>state?.course?.coursedata)
-    console.log(myCourse);
+   
   const months = ["Januar","February","March","April","May","June","July","August","September","October","November","December"]
   
 const MonthlySells = {
@@ -34,6 +35,7 @@ const MonthlySells = {
     borderWidth: 1
   }]
 };
+
 const UserDetails = {
   labels: ["Registered User","Enrolled User"],
   datasets: [{
@@ -51,6 +53,14 @@ const UserDetails = {
   }]
 };
    
+    async function DeleteCourse() {
+       if (window.confirm("Do you realy want to delete this course")) {
+         const res=await dispatch(removeCourseMethod(courseId))
+         if (res?.payload?.success) {
+            dispatch(GetAllCourses())
+         }
+       }
+    }
 
     async function downloadData() {
       await dispatch(GetAllCourses())
@@ -120,11 +130,23 @@ const UserDetails = {
                                </td>
                                <td><textarea value={course?.createdBy} readOnly className="text-center resize-none bg-transparent" cols="20" ></textarea>
                                </td>
-                               <td><textarea value={course?.numbersOfLecture} readOnly className="text-center resize-none bg-transparent" cols="30" rows="2"></textarea>
+                               <td><textarea value={course?.numbersOfLecture} readOnly className="text-center resize-none bg-transparent" cols="20" rows="2"></textarea>
                                </td>
                                <td><textarea value={course?.description} readOnly className="text-center resize-none h-auto bg-transparent" cols="30" ></textarea>
                                </td>
-                               <td><textarea value={course?.title} readOnly className="text-center resize-none bg-transparent" cols="30" ></textarea>
+                               <td className="flex w-44 ml-10  justify-between items-center gap-6">
+                                   <button 
+                                     className="btn btn-success "
+                                     onClick={()=>{navigate(`/course/${course?._id}/displaylectures`,{state :{...course}})}}
+                                     >
+                                      <BsCollectionPlayFill/> 
+                                   </button>
+                                   <button 
+                                     className="btn btn-warning "
+                                     onClick={DeleteCourse}
+                                     >
+                                      <BsTrash/> 
+                                   </button>
                                </td>
                             </tr>
                          )

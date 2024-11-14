@@ -12,6 +12,7 @@ function DisplayLectures() {
   const navigate = useNavigate();
   const { state } = useLocation();
   const { lectures } = useSelector((state) => state?.lecture);
+  
 
   const { role } = useSelector((state) => state.auth);
   const [currentLecture, setCurrentLecture] = useState(0);
@@ -20,11 +21,11 @@ function DisplayLectures() {
     if (!courseId || !lectureId) {
       return;
     }
-    await dispatch(RemoveLecture(courseId, lectureId));
-    await dispatch(GetAllCourseLectures(courseId));
+     dispatch(RemoveLecture(courseId, lectureId));
+     dispatch(GetAllCourseLectures(courseId));
   }
   async function GetAllcourse() {
-    await dispatch(GetAllCourseLectures(state._id));
+     dispatch(GetAllCourseLectures(state._id));
   }
 
   useEffect(() => {
@@ -43,8 +44,8 @@ function DisplayLectures() {
           Course Name:{state?.title}
         </div>
         {lectures && lectures.length > 0 && (
-          <div className="flex justify-center gap-10 w-full">
-            <div className="space-y-5 w-[28rem] p-2 rounded-lg shadow-[0_0_10px_yellow]">
+          <div className="flex justify-center gap-10 w-[100%]">
+            <div className="space-y-5 w-[70%] p-2 rounded-lg shadow-[0_0_10px_yellow]">
               <video
                 controls
                 className="object-fill rounded-tl-lg rounded-tr-lg w-full"
@@ -64,20 +65,32 @@ function DisplayLectures() {
                 </p>
               </div>
             </div>
-            <ul className="w-[28rem] p-2 rounded-lg shadow-[0_0_10px_yellow] space-y-4">
+            <ul className="w-[20%] p-2 rounded-lg shadow-[0_0_10px_yellow] space-y-4">
+             <p className="w-full text-center">Lecture list</p>
               <li className="font-semibold text-xl text-yellow-500 flex items-center justify-center">
-                <p className="">Lecture list</p>
                 {role === "ADMIN" && (
-                  <button
-                    onClick={() => {
-                      navigate(`/course/${state?._id}/addlecture`, {
-                        state: { ...state },
-                      });
-                    }}
-                    className="btn btn-active ml-5 btn-primary "
-                  >
-                    Add new lecture
-                  </button>
+                  <div>
+                    <button
+                      onClick={() => {
+                        navigate(`/course/${state?._id}/addlecture`, {
+                          state: { ...state },
+                        });
+                      }}
+                      className="btn btn-active ml-2 btn-primary "
+                    >
+                      Add lecture
+                    </button>
+                    <button
+                      onClick={() => {
+                        navigate(`/course/${state?._id}/addquiz`, {
+                          state: { ...state },
+                        });
+                      }}
+                      className="btn btn-active ml-5 btn-primary "
+                    >
+                      Add Quiz
+                    </button>
+                  </div>
                 )}
               </li>
               {lectures &&

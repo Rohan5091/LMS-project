@@ -30,7 +30,7 @@ function Homelayout({ children }) {
     <div className="min-w-[90vw] h-screen ">
       <div className="drawer">
         <input id="my-drawer" type="checkbox" className="drawer-toggle" />
-        <div className="drawer-contain">
+        <div className="drawer-contain ">
           <label htmlFor="my-drawer" className="cursor-pointer relative">
             <IoMenu size={"50px"} onClick={opensideBar} />
           </label>
@@ -41,11 +41,11 @@ function Homelayout({ children }) {
             aria-label="close sidebar"
             className="drawer-overlay"
           ></label>
-          <ul className="menu p-4 w-80 min-h-full space-y-4 bg-base-200 text-base-content">
+          <ul className="menu pt-8 w-80  min-h-full space-y-4 bg-base-200 text-base-content">
             <li className=" absolute top-1 right-0">
               <ImCross onClick={hidedrower} size={"50px"} />
             </li>
-            <label className="flex cursor-pointer gap-2">
+            {/* <label className="flex cursor-pointer gap-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="20"
@@ -78,7 +78,7 @@ function Homelayout({ children }) {
               >
                 <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
               </svg>
-            </label>
+            </label> */}
             <li>
               <Link to={"/"}>
                 <span className="text-lg ">Home</span>

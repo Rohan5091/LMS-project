@@ -128,11 +128,30 @@ export const getAllPaymentDetails= async (req,res,next)=>{
         const subscriptions=await razorpay.subscriptions.all({
            count:count || 100
         })
+
+      const monthlySalesRecords=new Array(12)
+      const finalMonth={}
+      const allPayments={...subscriptions}
+      const activeUserData=[];
+      
+        subscriptions?.items?.forEach((item,idx)=>{
+            if (item?.status=="active") {
+              activeUserData.push(item)
+            }
+        })
+        
+        activeUserData.forEach((e)=>{
+           const date=new Date(e?.created_at*1000)
+           const month=date?.getMonth()
+           monthlySalesRecords[month]=monthlySalesRecords[month]+1
+        })
          
         return res.status(200).json({
          success:true,
          message:"subscribers detail",
-         subscriptions
+         monthlySalesRecords,
+         finalMonth,
+         allPayments
          })
          
       } catch (error) {

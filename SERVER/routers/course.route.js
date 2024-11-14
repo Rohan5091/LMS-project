@@ -5,8 +5,6 @@ import upload from "../middlewares/multer.middleware.js"
 
 const courseRouter=Router();
 
-
-
 courseRouter.route("/")
 .get(getAllCourses)
 .post(isLoggedIn,authrizedRoll("ADMIN"),upload.single("thumbnail"),createCourse)

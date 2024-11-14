@@ -51,7 +51,6 @@ function CourseDescription() {
                         </button>
                       )
                     }
-                    
                  </div>
               </div>
 

@@ -41,6 +41,7 @@ export const Loginmethod=createAsyncThunk("/auth/login", async (data)=>{
       toast.error(error?.message)
    }
 })
+
 export const logoutmethod=createAsyncThunk("auth/logout",async()=>{
 
      try {

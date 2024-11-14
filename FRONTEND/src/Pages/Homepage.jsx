@@ -5,13 +5,17 @@ import homepageImage from "../assets/Images/homePageMainImage.png"
 import { useDispatch } from 'react-redux'
 import { useEffect } from 'react'
 import { GetUserProfile } from '../Redux/Slices/AuthSlices.js'
+import TopEducator from "../Pages/TopEducator.jsx"
+import StudentsReviews from "../Pages/StudentsReviews.jsx"
+import SocialMedia from "../Pages/SocialMedia.jsx"
+import Carousel from "../Pages/ImageSlider.jsx"
 
 
 function Homepage() {
    const dispatch=useDispatch()
   
   async function loaddata() {
-    await dispatch(GetUserProfile())
+     dispatch(GetUserProfile())
  }
 
   useEffect(()=>{
@@ -19,7 +23,7 @@ function Homepage() {
   },[])
   return (
      <Homelayout>
-          <div className='flex flex-col sm:flex-row items-center sm:justify-center lg:mb-44 lg:pt-12  my-6 '>
+          <div className='flex flex-col bg-gray-900 h-[100vh] sm:flex-row items-center sm:justify-center lg:mb-44 lg:pt-12  my-6 '>
               <div className='sm:w-1/2 pl-6 space-y-5 '>
                   <h1 className='text-3xl font-semibold sm:text-5xl mb-4'>
                      Find out best <span className='text-yellow-500'>Online course</span>
@@ -36,10 +40,15 @@ function Homepage() {
                       </Link>
                   </div>
               </div>
+              
               <div>
                  <img src={homepageImage} alt="home page image" />
               </div>
           </div>
+          <Carousel/>
+          <TopEducator/>
+          <StudentsReviews/>
+          <SocialMedia/>
      </Homelayout>
   )
 }

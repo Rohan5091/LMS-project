@@ -18,8 +18,8 @@ const register = async function (req, res, next) {
   if (!fullName || !email || !password) {
     return next(new ApiError(409, "Every field is required"));
   }
-
   const valid = emailValidator.validate(email);
+
   if (!valid) {
     return next(new ApiError(409, "Enter a valid email id"));
   }
@@ -82,7 +82,6 @@ const register = async function (req, res, next) {
 
 const login = async (req, res, next) => {
   const { email, password } = req.body;
-  
   if (!email || !password) {
     return next(new ApiError(409, "Every field is required"));
   }
@@ -134,6 +133,7 @@ const profile = async (req, res, next) => {
 };
 
 const forgotPassword = async (req, res, next) => {
+  
   const { email } = req.body;
 
   if (!email) {
@@ -148,7 +148,7 @@ const forgotPassword = async (req, res, next) => {
 
   const resetToken = await user.generatePasswordResetToken();
   await user.save();
-  console.log(resetToken);
+  
 
   const resetPasswordURL = `${process.env.CLIENT_URL}/ forreset_password <a href=${resetToken} >click here</a>`;
   const message = `${resetPasswordURL}`;
@@ -209,7 +209,7 @@ const resetPassword = async (req, res, next) => {
 const changePassword = async function (req, res, next) {
   const id = req.user.id;
   const { oldPassword, newPassword } = req.body;
-  console.log(oldPassword, newPassword);
+ 
   if (!oldPassword || !newPassword) {
     return next(new ApiError(400, "Every field is required "));
   }

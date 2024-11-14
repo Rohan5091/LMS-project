@@ -53,7 +53,7 @@ const UserDetails = {
   }]
 };
    
-    async function DeleteCourse() {
+    async function DeleteCourse(courseId) {
        if (window.confirm("Do you realy want to delete this course")) {
          const res=await dispatch(removeCourseMethod(courseId))
          if (res?.payload?.success) {
@@ -143,7 +143,7 @@ const UserDetails = {
                                    </button>
                                    <button 
                                      className="btn btn-warning "
-                                     onClick={DeleteCourse}
+                                     onClick={()=>{DeleteCourse(course?._id)}}
                                      >
                                       <BsTrash/> 
                                    </button>

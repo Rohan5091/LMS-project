@@ -30,7 +30,7 @@ const authrizedSubscriber= async (req,res,next)=>{
         return next(new ApiError(400, "You do not have Permision Access this route"));
        }   
        next()
-    }
+}
 
-    export  {isLoggedIn,authrizedRoll,authrizedSubscriber};
+export  {isLoggedIn,authrizedRoll,authrizedSubscriber};
     

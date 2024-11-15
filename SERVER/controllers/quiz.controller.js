@@ -1,5 +1,4 @@
-import Quiz from "../models/quiz.model.js";
-import Question from "../models/question.model.js";
+import {Quiz,Question} from "../models/quiz.model.js";
 import ApiError from "../utills/error.utills.js";
 
 
@@ -17,7 +16,7 @@ const createQuiz=async function(req,res,next){
       const newQuestion = new Question({
           title: question.title,
           options: question.options,
-          answer: question.answer
+          answer: question.correctAnswer
       });
       await newQuestion.save();
       questionsArray.push(newQuestion);
@@ -32,6 +31,7 @@ const createQuiz=async function(req,res,next){
     });
 
     await quiz.save();
+    console.log(quiz);
     return res.status(201).json({
         success:true,
         message:"Quiz is created successfully",
@@ -53,7 +53,11 @@ const deleteQuiz=async function(req,res,next){
 }
 
 const getQuiz=async function(req,res,next){
-    const {quizId}=req.body;
+    const {quizId}=req.params;
+    
+    if (!quizId) {
+        return next(new ApiError(400,"Quiz id is required"));
+    }
     const quiz=await Quiz.findById(quizId); 
     if (!quiz) {
         return next(new ApiError(404,"Quiz is not exist"));
@@ -66,7 +70,10 @@ const getQuiz=async function(req,res,next){
 } 
 
 const getAllQuiz=async function(req,res,next){
-    const {courseId}=req.body;
+    const {courseId}=req.params;
+    if(!courseId){
+        return next(new ApiError(400,"Course id is required"));
+    }
     const quiz=await Quiz.find({courseId});
     if (!quiz) {
         return next(new ApiError(404,"Quiz is not exist"));
@@ -78,17 +85,25 @@ const getAllQuiz=async function(req,res,next){
     });
 }
 
-const updateScore=async function(req,res,next){
-    const {quizId,score}=req.body;
+const updateQuiz=async function(req,res,next){
+    const {quizId,score,selectedOptions}=req.body;
+    if (!quizId || !selectedOptions) {
+        return next(new ApiError(400,"Quiz id, score, selected options are required"));
+    }
     const quiz=await Quiz.findById(quizId); 
     if (!quiz) {
         return next(new ApiError(404,"Quiz is not exist"));
     }
+   
+    quiz.questions.forEach((question,index)=> {
+        question.selectedAnswer=selectedOptions[index];
+    });
+    quiz.isSubmited=true;
     quiz.score=score;
     await quiz.save();
     return res.status(200).json({
         success:true,
-        message:"Quiz score is updated successfully",
+        message:"Quiz is updated successfully",
         data:quiz
     });
 }
@@ -97,5 +112,6 @@ export {
     createQuiz,
     deleteQuiz,
     getQuiz,
-    getAllQuiz
+    getAllQuiz,
+    updateQuiz
 }

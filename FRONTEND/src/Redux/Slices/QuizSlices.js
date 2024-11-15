@@ -1,0 +1,105 @@
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axiosInstance from "../../Hellers/axiosinstance";
+import toast from "react-hot-toast";
+
+const initialState={
+   quizzes:[]
+}
+
+ export const GetAllQuizzesOfCourse=createAsyncThunk("get/allQuizzes", async function (coursedata) {
+      try {
+          const response=axiosInstance.get(`quizzes/${coursedata.courseId}/getAll`)
+          toast.promise(response,{
+             loading:"Wait!! loading quizzes",
+             success:((data)=>{
+               return data?.data?.message
+             }),
+             error:"Failed to get quizzes"
+          })
+          console.log((await response).data); 
+          return (await response).data
+      } catch (error) {
+          toast.error(error?.response?.data?.message)
+      }
+ })
+
+ export const AddQuiz=createAsyncThunk("add/Quiz", async function (data) {
+      try {
+          const QuizDataForm={title:data.title,courseId:data.courseId,questions:data.questions}
+          const response=axiosInstance.post(`/quizzes`,QuizDataForm)
+          toast.promise(response,{
+             loading:"Wait!! uploading Quiz",
+             success:((data)=>{
+               return data?.data?.message
+             }),
+             error:"Failed to add Quiz"
+          })
+          return (await response).data
+      } catch (error) {
+          toast.error(error?.response?.data?.message)
+      }
+ })
+
+ export const updatQuiz=createAsyncThunk("update/Quiz", async function (data) {
+      try {
+          const response=axiosInstance.put(`/quizzes`,data)
+          toast.promise(response,{
+             loading:"Wait!! updateing Quiz",
+             success:((data)=>{
+               return data?.data?.message
+             }),
+             error:"Failed to update Quiz"
+          })
+          console.log((await response).data);
+          return (await response).data
+      } catch (error) {
+          console.log(error);
+          toast.error(error?.response?.data?.message)
+      }
+ })
+
+ export const RemoveQuiz=createAsyncThunk("delete/lecture", async function (quizId) {
+      try {
+          const response=axiosInstance.delete(`quizzes`,{data:{quizId}})
+          toast.promise(response,{
+             loading:"Wait!! removing quiz",
+             success:((data)=>{
+               return data?.data?.message
+             }),
+             error:"Failed to remove quiz"
+          })
+          console.log((await response).data);
+          return (await response).data
+      } catch (error) {
+          toast.error(error?.response?.data?.message)
+      }
+ })
+ export const getQuiz=createAsyncThunk("get/quiz", async function (data) {
+      try {
+          const response=axiosInstance.get(`quizzes/${data.quizId}/getA`)
+          toast.promise(response,{
+             loading:"Wait!! getting quiz",
+             success:((data)=>{
+               return data?.data?.message
+             }),
+             error:"Failed to get quiz"
+          })
+          return (await response).data
+      } catch (error) {
+          toast.error(error?.response?.data?.message)
+      }
+ })
+
+const QuizSlice=createSlice({
+    name:"Quiz",
+    initialState,
+    reducers:{},
+    extraReducers:((builder)=>{
+       builder.addCase(GetAllQuizzesOfCourse.fulfilled,function (state,action) {
+            state.quizzes=action.payload.data
+       })
+    })
+})
+
+
+export default QuizSlice.reducer

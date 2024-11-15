@@ -6,12 +6,14 @@ import {
   GetAllCourseLectures,
   RemoveLecture,
 } from "../../Redux/Slices/LectureSlice";
+import { GetAllQuizzesOfCourse, RemoveQuiz } from "../../Redux/Slices/QuizSlices";
 
 function DisplayLectures() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { state } = useLocation();
   const { lectures } = useSelector((state) => state?.lecture);
+  const {quizzes} = useSelector((state) => state?.quiz);
   
 
   const { role } = useSelector((state) => state.auth);
@@ -23,8 +25,20 @@ function DisplayLectures() {
     }
      dispatch(RemoveLecture(courseId, lectureId));
      dispatch(GetAllCourseLectures(courseId));
+     GetAllcourse();
   }
-  async function GetAllcourse() {
+
+  async function onQuizDelete(quizId) {
+    if (!quizId) {
+       return;
+    }
+    dispatch(RemoveQuiz(quizId));
+    dispatch(GetAllQuizzesOfCourse({courseId:state._id}));
+    GetAllcourse();
+  }
+
+  async function GetAllDetails() {
+     dispatch(GetAllQuizzesOfCourse({courseId:state._id}));
      dispatch(GetAllCourseLectures(state._id));
   }
 
@@ -32,7 +46,7 @@ function DisplayLectures() {
     if (!state) {
       navigate("/courses");
     }
-    GetAllcourse();
+    GetAllDetails();
     if (!lectures) {
       navigate(`course/${state?._id}/addlecture`);
     }
@@ -65,9 +79,9 @@ function DisplayLectures() {
                 </p>
               </div>
             </div>
-            <ul className="w-[20%] p-2 rounded-lg shadow-[0_0_10px_yellow] space-y-4">
-             <p className="w-full text-center">Lecture list</p>
-              <li className="font-semibold text-xl text-yellow-500 flex items-center justify-center">
+            <ul className="w-[20%] h-[100vh] p-2 overflow-y-scroll rounded-lg shadow-[0_0_10px_yellow] space-y-4">
+             <p className="w-full text-center">Lecture And Quiz list</p>
+              <li className="font-semibold text-xl  text-yellow-500 flex items-center justify-center">
                 {role === "ADMIN" && (
                   <div>
                     <button
@@ -115,6 +129,44 @@ function DisplayLectures() {
                           className="btn btn-accent px-2 py-1 rounded-md font-semibold text-sm"
                         >
                           Delete lecture
+                        </button>
+                      )}
+                    </li>
+                  );
+                })}
+                {quizzes &&
+                quizzes.map((quiz, idx) => {
+                  return (
+                    <li className="space-y-2" key={quiz._id}>
+                      <p
+                        className="cursor-pointer"
+                        onClick={() => setCurrentLecture(idx)}
+                      >
+                        <span>
+                          {" "}
+                          quiz {idx + 1} :{"  "}
+                        </span>
+                        {quiz.title}
+                      </p>
+                      {role === "ADMIN" ? (
+                        <button
+                          onClick={() => {
+                            onQuizDelete(quiz?._id);
+                          }}
+                          className="btn btn-accent px-2 py-1 rounded-md font-semibold text-sm"
+                        >
+                          Delete quiz
+                        </button>
+                      ):(
+                        <button
+                          onClick={() => {
+                            navigate(`/quiz/${quiz?._id}/attempt`, {
+                              state: { ...quiz },
+                            });
+                          }}
+                          className="btn btn-accent px-2 py-1 rounded-md font-semibold text-sm"
+                        >
+                          Attempt Quiz
                         </button>
                       )}
                     </li>

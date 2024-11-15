@@ -7,6 +7,7 @@ import errorMiddleware from "./middlewares/error.middlewares.js";
 import courseRoute from "./routers/course.route.js";
 import paymentRoute from "./routers/payment.routs.js";
 import mescellaniousRoute from "./routers/miscellaneous.js";
+import quizRouter from "./routers/quiz.route.js";
 
 const app=express();
  
@@ -35,6 +36,7 @@ app.use("/api/v1/data/",mescellaniousRoute);
 app.use("/api/v1/user/",userRoute);
 app.use("/api/v1/payment/",paymentRoute);
 app.use("/api/v1/courses/",courseRoute);
+app.use("/api/v1/quizzes/",quizRouter);
 
 app.use("/",(req,res)=>{
   res.send("Hey I am rohan malakar")   

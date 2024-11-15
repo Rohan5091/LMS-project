@@ -1,5 +1,27 @@
 import { Schema,model } from "mongoose";
 
+const questionSchema=new Schema({
+   title:{
+      type:String,
+      required:[true,"Question is required"],
+   },
+   options:[
+     {
+      type:[String],
+      required:[true,"Options is required"],
+    }
+   ],
+   answer:{
+      type:String,
+      required:[true,"Answer is required"],
+   },
+   selectedAnswer:{
+      type:String,
+      default:"",
+   }
+})
+
+
 const quizSchema= new Schema({
     title:{
         type:String,
@@ -17,30 +39,18 @@ const quizSchema= new Schema({
    },
    score:{  
       type:Number,
-      required:[true,"Score is required"],
-      default:-1
+      default:null
+   },
+   isSubmited:{
+      type:Boolean,
+      default:false
    },
    createdBy:{
       type:String,
    },
 },{timestamps:true})
 
-const questionSchema=new Schema({
-   title:{
-      type:String,
-      required:[true,"Question is required"],
-   },
-   options:[
-     {
-      type:[String],
-      required:[true,"Options is required"],
-    }
-   ],
-   answer:{
-      type:String,
-      required:[true,"Answer is required"],
-   }
-})
+
 
 const Quiz=model("Quiz",quizSchema);
 const Question=model("Question",questionSchema);

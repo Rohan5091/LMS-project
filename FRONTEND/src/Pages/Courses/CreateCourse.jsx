@@ -63,7 +63,7 @@ formData.append("createdBy",inputData.createdBy)
 formData.append("thumbnail",inputData.thumbnail)
 
 
-  const response=await dispatch(CreateNewCourse(formData))
+  const response= dispatch(CreateNewCourse(formData))
   if (response?.payload) {
      setInputData({
       title:"",

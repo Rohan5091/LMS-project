@@ -37,23 +37,36 @@ const quizSchema= new Schema({
       type:String,
       required:[true,"Course id is required"],
    },
-   score:{  
-      type:Number,
-      default:null
-   },
-   isSubmited:{
-      type:Boolean,
-      default:false
-   },
    createdBy:{
       type:String,
    },
 },{timestamps:true})
 
 
+const submittedQuizSchema= new Schema({
+   userId:{
+      type:String,
+      required:[true,"User id is required"],
+   },
+  quizId:{
+       type:String,
+       required:[true,"Quiz id is required"],
+   },
+   selectedOptions:[
+      {
+         type:Number,
+         required:[true,"Selected options are required"],
+      }
+   ],
+  score:{  
+     type:Number,
+     default:null
+  }
 
+},{timestamps:true})
+
+const SubmittedQuiz=model("SubmittedQuiz",submittedQuizSchema);
 const Quiz=model("Quiz",quizSchema);
 const Question=model("Question",questionSchema);
 
-export {Quiz,Question};
- 
+export {Quiz,Question,SubmittedQuiz};

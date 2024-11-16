@@ -3,6 +3,8 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { useDispatch } from "react-redux"; 
 import { AddQuiz } from '../../Redux/Slices/QuizSlices';
+import Homelayout from '../../Layouts/Homelayout';
+import QuizPublished from '../Pop_upMessage';
 
 
 const AddQuizForm = () => {
@@ -12,6 +14,7 @@ const AddQuizForm = () => {
     { title: '', options: ['', '', '', ''], correctAnswer: '' },
   ]);
   const [error, setError] = useState('');
+  const [ispublic, setIspublic] = useState(false);
   
   
   const dispatch = useDispatch();
@@ -22,8 +25,6 @@ const AddQuizForm = () => {
 
   const courseId = state._id;
   
- 
-
   const handleTitleChange = (e) => setTitle(e.target.value);
 
   const handleQuestionChange = (index, e) => {
@@ -68,11 +69,13 @@ const AddQuizForm = () => {
     setError('');
     const data={title,courseId, questions};
     dispatch(AddQuiz(data));
-    //navigate(-1);
+    setIspublic(true);
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-800">
+    <Homelayout>
+    {!ispublic ?
+    (<div className="flex justify-center items-center min-h-screen bg-gray-800">
       <form onSubmit={handleSubmit} className="w-full max-w-2xl bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
         <h2 className="text-2xl font-bold mb-4">Create Quiz</h2>
         
@@ -141,11 +144,15 @@ const AddQuizForm = () => {
             type="submit"
             className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           >
-            Submit Quiz
+            Public Quiz
           </button>
         </div>
       </form>
-    </div>
+    </div>):
+    ( 
+       <QuizPublished/>
+    )}
+    </Homelayout>
   );
 };
 

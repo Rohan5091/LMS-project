@@ -59,7 +59,7 @@ function DisplayLectures() {
         </div>
         {lectures && lectures.length > 0 && (
           <div className="flex justify-center gap-10 w-[100%]">
-            <div className="space-y-5 w-[70%] p-2 rounded-lg shadow-[0_0_10px_yellow]">
+            <div className="space-y-5 w-[70%] aspect-video p-2 rounded-lg shadow-[0_0_10px_yellow]">
               <video
                 controls
                 className="object-fill rounded-tl-lg rounded-tr-lg w-full"

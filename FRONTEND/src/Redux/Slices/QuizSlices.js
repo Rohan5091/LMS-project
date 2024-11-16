@@ -40,20 +40,35 @@ const initialState={
       }
  })
 
- export const updatQuiz=createAsyncThunk("update/Quiz", async function (data) {
+ 
+ export const submitQuiz=createAsyncThunk("submit/Quiz", async function (data) {
       try {
-          const response=axiosInstance.put(`/quizzes`,data)
+          const response=axiosInstance.post(`/quizzes/${data.quizId}/submit`,data)
           toast.promise(response,{
-             loading:"Wait!! updateing Quiz",
+             loading:"Wait!! submitting Quiz",
              success:((data)=>{
                return data?.data?.message
              }),
-             error:"Failed to update Quiz"
+             error:"Failed to submit Quiz"
+          })
+          return (await response).data
+      } catch (error) {
+          toast.error(error?.response?.data?.message)
+      }
+ })
+ export const getSubmittedQuiz=createAsyncThunk("submitted/Quiz", async function (data) {
+      try {
+          const response=axiosInstance.post(`/quizzes/${data.quizId}/getSubmitted`,data)
+          toast.promise(response,{
+             loading:"Wait!! getting Quiz data",
+             success:((data)=>{
+               return data?.data?.message
+             }),
+             error:"You have not submitted quiz yet"
           })
           console.log((await response).data);
           return (await response).data
       } catch (error) {
-          console.log(error);
           toast.error(error?.response?.data?.message)
       }
  })

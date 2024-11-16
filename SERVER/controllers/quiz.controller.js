@@ -1,4 +1,4 @@
-import {Quiz,Question} from "../models/quiz.model.js";
+import {Quiz,Question, SubmittedQuiz} from "../models/quiz.model.js";
 import ApiError from "../utills/error.utills.js";
 
 
@@ -85,26 +85,47 @@ const getAllQuiz=async function(req,res,next){
     });
 }
 
-const updateQuiz=async function(req,res,next){
-    const {quizId,score,selectedOptions}=req.body;
-    if (!quizId || !selectedOptions) {
-        return next(new ApiError(400,"Quiz id, score, selected options are required"));
+const submitQuiz=async function(req,res,next){
+    const {userId,quizId,score,selectedOptions}=req.body;
+    
+
+    if (!quizId || !selectedOptions || !score || !userId) {
+        return next(new ApiError(400,"Quiz id, score, selected options and userId are required"));
     }
     const quiz=await Quiz.findById(quizId); 
     if (!quiz) {
         return next(new ApiError(404,"Quiz is not exist"));
     }
    
-    quiz.questions.forEach((question,index)=> {
-        question.selectedAnswer=selectedOptions[index];
+    const submittedQuiz= new SubmittedQuiz({
+        userId,
+        quizId,
+        selectedOptions,
+        score
     });
-    quiz.isSubmited=true;
-    quiz.score=score;
-    await quiz.save();
-    return res.status(200).json({
+
+    await submittedQuiz.save();
+    return res.status(201).json({
         success:true,
-        message:"Quiz is updated successfully",
-        data:quiz
+        message:"Quiz is submitted successfully",
+        data:submittedQuiz
+    });
+}
+const getSubmittedQuiz=async function(req,res,next){
+    const {userId,quizId}=req.body;
+    console.log("userId,quizId",userId,quizId);
+    if (!quizId ||  !userId) {
+        return next(new ApiError(400,"Quiz id and userId are required"));
+    }
+    const submittedQuiz=await SubmittedQuiz.findOne({userId,quizId}); 
+    if (!submittedQuiz) {
+        return next(new ApiError(404,"You have not submitted quiz"));
+    }
+   
+    return res.status(201).json({
+        success:true,
+        message:"submitted quiz data",
+        data:submittedQuiz
     });
 }
 
@@ -113,5 +134,6 @@ export {
     deleteQuiz,
     getQuiz,
     getAllQuiz,
-    updateQuiz
+    submitQuiz,
+    getSubmittedQuiz
 }

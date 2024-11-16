@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Pie} from "react-chartjs-2"
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { updatQuiz } from '../../Redux/Slices/QuizSlices';
+import { useDispatch, useSelector } from 'react-redux';
+import { getSubmittedQuiz, submitQuiz} from '../../Redux/Slices/QuizSlices';
+import Homelayout from '../../Layouts/Homelayout';
 
 
 
 const QuizDisplay = () => {
+  const userId=useSelector(state=>state.auth.data._id);
   const [quiz, setQuiz] = useState(null);
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -17,26 +19,26 @@ const QuizDisplay = () => {
   const navigate = useNavigate();
   
   
+   
   useEffect(() => {
     if(!state){
-       navigate("/courses")
+      navigate("/courses")
     }
-     setQuiz(state);
-     
+    setQuiz(state);
+    
   },[]);
-  
-  console.log(quiz);
 
-  useEffect(()=>{
-    if(quiz?.isSubmited){
-      let array=[];
-      quiz?.questions.forEach((question,index)=>{
-          array.push(question.selectedAnswer)
-      })
-      setSelectedOptions(array);
-      setIsSubmitted(true);
-     }
-  },[quiz])
+  useEffect(() => {
+      let response=null
+      if(userId){
+         response=dispatch(getSubmittedQuiz({userId:userId,quizId:state._id}));
+      }
+      if(response?.success){
+         setIsSubmitted(response?.success);
+      }
+      console.log(response);
+  },[userId]);
+  
 
   const handleOptionChange = (questionIndex, optionIndex) => {
     if (isSubmitted) return; // Prevent changes after submission
@@ -51,17 +53,17 @@ const QuizDisplay = () => {
     // Calculate score and set the quiz as submitted
     let calculatedScore = 0;
     quiz.questions.forEach((question, index) => {
-      console.log(selectedOptions[index] ," ",question.answer);
       if (selectedOptions[index] == question.answer) {
         calculatedScore += 1;
       }
     });
     setScore(calculatedScore);
     setIsSubmitted(true);
-    dispatch(updatQuiz({quizId:quiz._id,score:calculatedScore,selectedOptions:selectedOptions}));
+    dispatch(submitQuiz({userId:userId,quizId:quiz._id,score:calculatedScore,selectedOptions:selectedOptions}));
   };
 
   if (!quiz) return <p>Loading quiz...</p>;
+  if (!userId) return <p>Please wait</p>;
 
   const QuizDetails = {
     labels: ["Correct Answer","Wrong Answer"],
@@ -80,8 +82,10 @@ const QuizDisplay = () => {
     }]
   };
 
+
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+    <Homelayout>
+    <div className="flex justify-center items-center py-10 min-h-screen bg-gray-100">
       <div className="w-full max-w-2xl bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
         <h2 className="text-2xl font-bold mb-4">{quiz.title}</h2>
         {
@@ -136,6 +140,7 @@ const QuizDisplay = () => {
         )}
       </div>
     </div>
+    </Homelayout>
   );
 };
 

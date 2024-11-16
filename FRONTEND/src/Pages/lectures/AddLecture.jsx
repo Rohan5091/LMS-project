@@ -26,8 +26,7 @@ function AddLecture() {
       toast.error("Every field is required");
       return;
     }
-      const response= await dispatch(UploadLectures(formData));
-      console.log("response",response.payload);
+      const response= dispatch(UploadLectures(formData));
       if(response?.payload?.success==true){
         setFormData({
           title: "",

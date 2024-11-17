@@ -35,7 +35,7 @@ const Footer = () => {
         {/* Section: Social media */}
 
         {/* Section: Links */}
-        <section className="py-8">
+        <section className="py-8 pl-20">
           <div className="container mx-auto text-center md:text-left">
             <div className="flex flex-wrap">
               {/* Company Name */}

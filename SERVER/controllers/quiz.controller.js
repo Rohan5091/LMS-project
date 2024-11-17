@@ -1,5 +1,8 @@
 import {Quiz,Question, SubmittedQuiz} from "../models/quiz.model.js";
+import User from "../models/user.model.js";
 import ApiError from "../utills/error.utills.js";
+import generateQuizSubmissionHTML from "../utills/quizSubmitionMessage.js";
+import sendMail from "../utills/sendMail.utills.js";
 
 
 const createQuiz=async function(req,res,next){
@@ -31,7 +34,7 @@ const createQuiz=async function(req,res,next){
     });
 
     await quiz.save();
-    console.log(quiz);
+    
     return res.status(201).json({
         success:true,
         message:"Quiz is created successfully",
@@ -103,8 +106,24 @@ const submitQuiz=async function(req,res,next){
         selectedOptions,
         score
     });
-
     await submittedQuiz.save();
+    const user=await User.findById(userId);
+    if(!user){
+        return next(new ApiError(404,"User is not exist"));
+    }
+
+    const messageHTML=generateQuizSubmissionHTML(user.fullName,score,selectedOptions.length,quiz.title);
+
+    try {
+        await sendMail({
+            email:user.email,
+            subject:"sucessfully Registered !!!",
+            messageHTML
+        });
+    } catch (error) {
+        console.log("error",error);
+    }
+    
     return res.status(201).json({
         success:true,
         message:"Quiz is submitted successfully",

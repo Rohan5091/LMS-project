@@ -5,6 +5,7 @@ import cloudinary from "cloudinary";
 import fs from "fs/promises";
 import sendMail from "../utills/sendMail.utills.js";
 import crypto from "crypto";
+import generateWelcomeEmailHTML from "../utills/registrationSubmitionMessage.js";
 
 const cookieOptions = {
   maxAge: 7 * 1000 * 60 * 60 * 24, 
@@ -69,9 +70,21 @@ const register = async function (req, res, next) {
   }
   await user.save();
   user.password = undefined;
-
+  console.log(user);
   const token = await user.generateJWTtoken();
   res.cookie("token", token, cookieOptions);
+  
+  const messageHTML=generateWelcomeEmailHTML(user.fullName);
+
+      try {
+        await sendMail({
+            email:user.email,
+            subject:"Registration confirmation Email",
+            messageHTML
+        });
+    } catch (error) {
+        console.log("error",error);
+    }
 
   return res.status(202).json({
     success: true,
@@ -87,11 +100,11 @@ const login = async (req, res, next) => {
   }
 
   const user = await User.findOne({ email }).select("+password");
-
+  
   if (!user) {
     return next(new ApiError(409, "Unautherised access"));
   }
-
+  console.log(user);
   if (!(await user.comparePassword(password))) {
     return next(new ApiError(409, "Incorrect password"));
   }

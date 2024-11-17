@@ -57,8 +57,8 @@ function DisplayLectures() {
           Course Name:{state?.title}
         </div>
         {lectures && lectures.length > 0 && (
-          <div className="flex justify-center gap-10 w-[100%]">
-            <div className="space-y-5 w-[70%] aspect-video p-2 rounded-lg shadow-[0_0_10px_yellow]">
+          <div className="flex justify-center  gap-10 w-[100%]">
+            <div className="space-y-5 w-[70%] max-h-[90vh] aspect-video p-2  rounded-lg shadow-[0_0_10px_yellow]">
               <video
                 controls
                 className="object-fill rounded-tl-lg rounded-tr-lg w-full"
@@ -78,7 +78,7 @@ function DisplayLectures() {
                 </p>
               </div>
             </div>
-            <ul className="w-[20%] h-[100vh] p-2 overflow-y-scroll rounded-lg shadow-[0_0_10px_yellow] space-y-4">
+            <ul className="w-[20%] max-h-[90vh] p-2 overflow-y-scroll rounded-lg shadow-[0_0_10px_yellow] space-y-4">
              <p className="w-full text-center">Lecture And Quiz list</p>
               <li className="font-semibold text-xl  text-yellow-500 flex items-center justify-center">
                 {role === "ADMIN" && (

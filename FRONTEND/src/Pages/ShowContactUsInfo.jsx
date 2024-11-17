@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axiosInstance from "../Hellers/axiosinstance";
+import Homelayout from "../Layouts/Homelayout";
 
 const ShowContactUsInfo = () => {
   const [data, setData] = useState([]);
@@ -35,6 +36,7 @@ const ShowContactUsInfo = () => {
   }
 
   return (
+    <Homelayout>
     <div className="container mx-auto py-10 px-4">
       <h1 className="text-3xl font-bold text-center mb-6">User Messages</h1>
       <div className="overflow-x-auto">
@@ -58,6 +60,7 @@ const ShowContactUsInfo = () => {
         </table>
       </div>
     </div>
+    </Homelayout>
   );
 };
 

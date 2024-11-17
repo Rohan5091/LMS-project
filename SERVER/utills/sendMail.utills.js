@@ -1,32 +1,34 @@
+import nodemailer from "nodemailer";
 
-import nodemailer from "nodemailer"
-
-const sendMail= async function(email,subject,message) {
-    
-    console.log(email,subject,message);
+const sendMail = async function ({email, subject, messageHTML}) {
+    console.log("email, subject, messageHTML",email, subject, messageHTML);
+  try {
+    // Create the transporter
     const auth = nodemailer.createTransport({
-        service:process.env.GMAIL_HOST_NAME,
-        secure : true,
-        port : 465,
-        auth: {
-            user: process.env.GMAIL_USERNAME,
-            pass: process.env.GMAIL_APP_PASSWORD
-        }
+      service: process.env.GMAIL_HOST_NAME,
+      secure: true,
+      port: parseInt(process.env.GMAIL_PORT) || 465, // Ensure the port is an integer
+      auth: {
+        user: process.env.GMAIL_USERNAME,
+        pass: process.env.GMAIL_APP_PASSWORD,
+      },
     });
 
+    // Email details
     const receiver = {
-        from : SMTP_FROM_MAIL,
-        to : email,
-        subject : subject,
-        text : message
+      from: process.env.SMTP_FROM_MAIL,
+      to: email,
+      subject: subject,
+      html: messageHTML, // Use the HTML content here
     };
 
-    auth.sendMail(receiver, (error, emailResponse) => {
-        if(error)
-        throw error;
-        console.log("success!");
-        response.end();
-    });
-    
+    // Send the email
+    const emailResponse = await auth.sendMail(receiver);
+    console.log("Email sent successfully:", emailResponse.messageId);
+  } catch (error) {
+    console.error("Error sending email:", error.message);
+    throw error;
   }
-  export default sendMail;
+};
+
+export default sendMail;

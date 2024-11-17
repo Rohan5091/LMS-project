@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import toast from "react-hot-toast";
 import { Loginmethod } from "../Redux/Slices/AuthSlices";
+import gif5 from "../assets/Images/gif5.gif";
 
 function Login() {
   const dispatch = useDispatch();
@@ -95,87 +96,125 @@ function Login() {
   return (
     <Homelayout>
 
-      <div className='flex flex-row justify-between'>
-
-      <div className='bg-black text-6xl w-[50%] text-centre p-10 font-extrabold'>
-          
-          <h1 className='p-10'>We Are Always Here To Help You!</h1>
-
-          <h3 className='text-3xl p-10 text-teal-300'>"Empowering Minds, One Lesson at a Time. Log in to Continue Your Journey."</h3>
-          <h3 className='text-2xl font-extralight pl-10 text-teal-300'>"Welcome back! Education unlocks endless possibilities, empowering you to explore, grow, and achieve. Continue right where you left off and let every lesson bring you closer to your dreams. Your journey awaits—let’s begin!"</h3>
+      <div className='flex relative flex-row justify-between'>
 
 
-      </div>
-      <div className="flex items-center bg-black w-[50%] justify-center h-screen">
+        {/* Background GIF with reduced opacity using ::before */}
         <div
-          className="relative h-[70%] w-[70%] bg-gray-800 border-solid-white group overflow-hidden hover:shadow-[0_0_15px_15px_teal] duration-1000 rounded-xl"
-          style={{
-            transformStyle: "preserve-3d",
-            perspective: "1000px",
-          }}
-          onMouseMove={handleMouseMove}
-          onMouseLeave={handleMouseLeave}
-        >
-          {/* Overlay Effect */}
-         {/* <div className="absolute inset-0 bg-teal-300 bg-opacity-20 transform -translate-y-full transition-transform duration-1000 ease-in-out group-hover:translate-y-0 rounded-xl"></div>*/}
+                  style={{
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      bottom: 0,
+                      backgroundImage: `url(${gif5})`,
+                      backgroundSize: "auto 100%", // Scales to full height, adjusts width automatically
+                      backgroundPosition: "left, right", // Aligns images to the left and right
+                      backgroundRepeat: "true", // Prevents tiling
+                      opacity: 0.2, // Reduces opacity of the background GIF only
+                      zIndex: -1, // Keeps the background behind the content
+                  }}
+        ></div>
 
-          {/* Login Form */}
-          <form
-            noValidate
-            onSubmit={OnLogin}
-            className="relative flex bg-[url('../assets/Images/techno-doodle.jpg')] h-full w-full border rounded-xl p-10 gap-4 flex-col z-10 card"
-            style={{
-              transformStyle: "preserve-3d", // Preserve 3D transforms
-              transition: "transform 0.2s ease-out", // Smooth transition for reset
-            }}
-          >
-            <h1 className="text-4xl  text-teal-500 text-center font-bold">
-              Login Page
-            </h1>
 
-            <div className="flex flex-col gap-2">
-              <label htmlFor="email">Email :</label>
-              <input
-                type="email"
-                id="email"
-                required
-                placeholder="Enter your email...."
-                name="email"
-                className="px-3 border rounded-md border-black bg-slate-300"
-                onChange={handelformdata}
-                value={LoginData.email}
-              />
-            </div>
+        <div className=' text-6xl w-[50%] text-centre p-10 font-extrabold'>
+            
+            <h1 className='p-10'>We Are Always Here To Help You!</h1>
 
-            <div className="flex flex-col gap-2">
-              <label htmlFor="password">Password :</label>
-              <input
-                type="password"
-                required
-                placeholder="Enter your password....."
-                name="password"
-                className="px-5 border rounded-md border-black bg-slate-300"
-                onChange={handelformdata}
-                value={LoginData.password}
-              />
-            </div>
+            <h3 className='text-3xl p-10 text-teal-300'>"Empowering Minds, One Lesson at a Time. Log in to Continue Your Journey."</h3>
+            <h3 className='text-2xl font-extralight pl-10 text-teal-300'>"Welcome back! Education unlocks endless possibilities, empowering you to explore, grow, and achieve. Continue right where you left off and let every lesson bring you closer to your dreams. Your journey awaits—let’s begin!"</h3>
 
-            {/* Login Button with Horizontal Curtain Effect */}
-            <button className="relative bg-teal-400  mt-3 py-2 text-black font-bold text-lg rounded-md overflow-hidden group hover:bg-black hover:border-solid-white hover:text-white">
-              {/* Horizontal Curtain */}
-              <span className="absolute inset-0 bg-teal-800 opacity-40 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-1000 ease-in-out"></span>
-              Login
-            </button>
 
-            <p>
-              Do not have an account?{" "}
-              <Link className="text-teal-400 text-lg font-semibold" to={"/SignUp"}>
-                SignUp
-              </Link>
-            </p>
-          </form>
         </div>
-      </div>
+        <div className="flex items-center  w-[50%] justify-center h-screen">
+
+            {/* Background GIF with reduced opacity using ::before */}
+        <div
+                  style={{
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      bottom: 0,
+                      backgroundImage: `url(${gif5})`,
+                      backgroundSize: "auto 100%", // Scales to full height, adjusts width automatically
+                      backgroundPosition: "left, right", // Aligns images to the left and right
+                      backgroundRepeat: "true", // Prevents tiling
+                      opacity: 0.6, // Reduces opacity of the background GIF only
+                      zIndex: -1, // Keeps the background behind the content
+                  }}
+        ></div>
+
+
+          <div
+            className="relative h-[70%] w-[70%] bg-gray-800 border-solid-white group overflow-hidden hover:shadow-[0_0_15px_15px_teal] duration-1000 rounded-xl"
+            style={{
+              transformStyle: "preserve-3d",
+              perspective: "1000px",
+            }}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+          >
+            {/* Overlay Effect */}
+          {/* <div className="absolute inset-0 bg-teal-300 bg-opacity-20 transform -translate-y-full transition-transform duration-1000 ease-in-out group-hover:translate-y-0 rounded-xl"></div>*/}
+
+            {/* Login Form */}
+            <form
+              noValidate
+              onSubmit={OnLogin}
+              className="relative flex bg-[url('../assets/Images/techno-doodle.jpg')] h-full w-full border rounded-xl p-10 gap-4 flex-col z-10 card"
+              style={{
+                transformStyle: "preserve-3d", // Preserve 3D transforms
+                transition: "transform 0.2s ease-out", // Smooth transition for reset
+              }}
+            >
+              <h1 className="text-4xl  text-teal-500 text-center font-bold">
+                Login Now
+              </h1>
+
+              <div className="flex flex-col gap-2">
+                <label htmlFor="email">Email :</label>
+                <input
+                  type="email"
+                  id="email"
+                  required
+                  placeholder="Enter your email...."
+                  name="email"
+                  className="px-3 border rounded-md border-black bg-slate-300"
+                  onChange={handelformdata}
+                  value={LoginData.email}
+                />
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <label htmlFor="password">Password :</label>
+                <input
+                  type="password"
+                  required
+                  placeholder="Enter your password....."
+                  name="password"
+                  className="px-5 border rounded-md border-black bg-slate-300"
+                  onChange={handelformdata}
+                  value={LoginData.password}
+                />
+              </div>
+
+              {/* Login Button with Horizontal Curtain Effect */}
+              <button className="relative bg-teal-400  mt-3 py-2 text-black font-bold text-lg rounded-md overflow-hidden group hover:bg-black hover:border-solid-white hover:text-white">
+                {/* Horizontal Curtain */}
+                <span className="absolute inset-0 bg-teal-800 opacity-40 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-1000 ease-in-out"></span>
+                Login
+              </button>
+
+              <p>
+                Do not have an account?{" "}
+                <Link className="text-teal-400 text-lg font-semibold" to={"/SignUp"}>
+                  SignUp
+                </Link>
+              </p>
+            </form>
+          </div>
+        </div>
         
       </div>
 
@@ -185,3 +224,4 @@ function Login() {
 }
 
 export default Login;
+

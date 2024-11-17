@@ -5,51 +5,51 @@ const Footer = () => {
   return (
     <div className="my-5">
       {/* Footer */}
-      <footer className="text-center text-lg-start text-white bg-gray-900">
+      <footer className="text-center  text-lg-start text-white bg-gray-900">
         {/* Section: Social media */}
         <section className="flex justify-between items-center p-4 bg-gray-700">
-          <div className="mr-5">
+          <div className="mr-5 pl-10">
             <span>Get connected with us on social networks:</span>
           </div>
           <div className="flex space-x-4">
             <a href="#" className="text-white">
-              <i className="fab fa-facebook-f"></i>
+              <i className="fab fa-facebook-f">hiiiiii</i>
             </a>
             <a href="#" className="text-white">
-              <i className="fab fa-twitter"></i>
+              <i className="fab fa-twitter">hiiiiii</i>
             </a>
             <a href="#" className="text-white">
-              <i className="fab fa-google"></i>
+              <i className="fab fa-google">hiiiiii</i>
             </a>
             <a href="#" className="text-white">
-              <i className="fab fa-instagram"></i>
+              <i className="fab fa-instagram">hiiiiii</i>
             </a>
             <a href="#" className="text-white">
-              <i className="fab fa-linkedin"></i>
+              <i className="fab fa-linkedin">hiiiiii</i>
             </a>
             <a href="#" className="text-white">
-              <i className="fab fa-github"></i>
+              <i className="fab fa-github">hiiiiii</i>
             </a>
           </div>
         </section>
         {/* Section: Social media */}
 
         {/* Section: Links */}
-        <section className="py-8 pl-20">
+        <section className="py-8">
           <div className="container mx-auto text-center md:text-left">
             <div className="flex flex-wrap">
               {/* Company Name */}
-              <div className="w-full md:w-1/4 lg:w-1/3 mb-8 md:mb-0">
-                <h6 className="uppercase font-semibold  hover:text-teal-400 hover:underline">Code-Scorer</h6>
-                <hr className="w-12 my-4 border-t-2 border-teal-400" />
-                <p>
+              <div className="w-full md:w-1/4 lg:w-1/3 pl-10 pr-10 mb-8 md:mb-0">
+                <h6 className="uppercase font-semibold  hover:text-teal-400 hover:underline ">Code-Scorer</h6>
+                <hr className="w-12 my-4 border-t-2  border-teal-400" />
+                <p className=" ">
                   Here you can use rows and columns to organize your footer
                   content. Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                 </p>
               </div>
 
               {/* Products */}
-              <div className="w-full md:w-1/4 lg:w-1/6 mb-8 md:mb-0">
+              <div className="w-full md:w-1/4 lg:w-1/6   mb-8 md:mb-0">
                 <h6 className="uppercase font-semibold  hover:text-teal-400 hover:underline">Products</h6>
                 <hr className="w-12 my-4 border-t-2 border-teal-400" />
                 <p><a href="#!" className="text-white hover:text-teal-400 hover:underline ">Frontend Development Course</a></p>

@@ -88,8 +88,8 @@ const getAllQuiz=async function(req,res,next){
 const submitQuiz=async function(req,res,next){
     const {userId,quizId,score,selectedOptions}=req.body;
     
-
-    if (!quizId || !selectedOptions || !score || !userId) {
+    console.log("userId,quizId,score,selectedOptions",userId,quizId,score,selectedOptions);
+    if (!quizId || !selectedOptions || !userId) {
         return next(new ApiError(400,"Quiz id, score, selected options and userId are required"));
     }
     const quiz=await Quiz.findById(quizId); 
@@ -113,13 +113,17 @@ const submitQuiz=async function(req,res,next){
 }
 const getSubmittedQuiz=async function(req,res,next){
     const {userId,quizId}=req.body;
-    console.log("userId,quizId",userId,quizId);
+    
     if (!quizId ||  !userId) {
         return next(new ApiError(400,"Quiz id and userId are required"));
     }
     const submittedQuiz=await SubmittedQuiz.findOne({userId,quizId}); 
     if (!submittedQuiz) {
-        return next(new ApiError(404,"You have not submitted quiz"));
+        return res.status(201).json({
+            success:true,
+            message:"You have not submitted this quiz yet",
+            data:null
+        });
     }
    
     return res.status(201).json({

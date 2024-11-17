@@ -59,14 +59,13 @@ const initialState={
  export const getSubmittedQuiz=createAsyncThunk("submitted/Quiz", async function (data) {
       try {
           const response=axiosInstance.post(`/quizzes/${data.quizId}/getSubmitted`,data)
-          toast.promise(response,{
-             loading:"Wait!! getting Quiz data",
-             success:((data)=>{
-               return data?.data?.message
-             }),
-             error:"You have not submitted quiz yet"
-          })
-          console.log((await response).data);
+        //   toast.promise(response,{
+        //      loading:"Wait!! getting Quiz data",
+        //      success:((data)=>{
+        //        return data?.data?.message
+        //      }),
+        //      error:"Quiz is not submitted"
+        //   })
           return (await response).data
       } catch (error) {
           toast.error(error?.response?.data?.message)

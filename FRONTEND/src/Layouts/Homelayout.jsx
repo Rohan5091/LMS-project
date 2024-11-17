@@ -27,15 +27,15 @@ function Homelayout({ children }) {
     }
   }
   return (
-    <div className="min-w-[90vw] h-screen ">
-      <div className="drawer">
+    <div className="min-w-[90vw]  h-screen ">
+      <div className="drawer ">
         <input id="my-drawer" type="checkbox" className="drawer-toggle" />
         <div className="drawer-contain ">
           <label htmlFor="my-drawer" className="cursor-pointer relative">
             <IoMenu size={"50px"} onClick={opensideBar} />
           </label>
         </div>
-        <div className="drawer-side w-0 max-w-fit z-50 transition-all delay-500 ease-out ">
+        <div className="drawer-side  w-0 max-w-fit z-50 transition-all delay-500 ease-out ">
           <label
             htmlFor="my-drawer"
             aria-label="close sidebar"
@@ -70,12 +70,20 @@ function Homelayout({ children }) {
                 </Link>
               </li>
             )}
-            <li>
-              <Link to={"/contact"}>
-                <span className="text-lg ">Contact</span>
-              </Link>
-            </li>
-
+            { role!="ADMIN" &&(
+              <li>
+                <Link to={"/contact"}>
+                  <span className="text-lg ">Contact</span>
+                </Link>
+              </li>
+            )}
+            {isLoggedIn && role == "ADMIN" && (
+              <li>
+                <Link to={"/contact/showData"}>
+                  <span className="text-lg ">Contact Us data</span>
+                </Link>
+              </li>
+            )}
             {!isLoggedIn && (
               <div className="width-full flex absolute bottom-14">
                 <li>

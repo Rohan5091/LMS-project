@@ -22,6 +22,7 @@ import AddLecture from './Pages/lectures/AddLecture'
 import Dashboard from './Pages/Admin/Dashboard'
 import AddQuizForm from './Pages/Quiz/AddQuiz'
 import DisplayQuiz from './Pages/Quiz/AttemptQuiz'
+import ShowContactUsInfo from './Pages/ShowContactUsInfo'
 
 
 export default function App() {
@@ -36,6 +37,7 @@ export default function App() {
         <Route path='/contact' element={<Contact/>}/>
         <Route path='/dinied' element={<DiniedPage/>}/>
         <Route element={<RequireAuth allowedRoles={["ADMIN"]}/>}>
+            <Route path='/contact/showData' element={<ShowContactUsInfo/>}/>
             <Route path='/course/create' element={<CreateCourse/>}/>
             <Route path='/course/:id/addlecture' element={<AddLecture/>}/>
             <Route path='/course/:id/addquiz' element={<AddQuizForm/>}/>

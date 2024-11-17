@@ -5,7 +5,7 @@ import axiosInstance from "../Hellers/axiosinstance";
 
 function Contact() {
   const [inputText, setInputText] = useState({
-    Name: "",
+    name: "",
     email: "",
     message: "",
   });
@@ -21,8 +21,8 @@ function Contact() {
 
   async function onsubmitform(e) {
     e.preventDefault();
-
-    if (!inputText.email || !inputText.Name || !inputText.message) {
+    
+    if (!inputText.email || !inputText.name || !inputText.message) {
       toast.error("Every field is required");
       return;
     }
@@ -37,17 +37,17 @@ function Contact() {
     }
 
     try {
-      // const response=axiosInstance.post("/contact",inputText)
+      const response = axiosInstance.post("data/contact", inputText);
       toast.promise(response, {
         loading: "Submitting your message...",
-        success: "Your message is submitted successfully!",
+        success: "Your message sent successfully",
         error: "Failed to submit your form",
       });
 
       const contactResponse = await response;
       if (contactResponse?.data?.success) {
         setInputText({
-          Name: "",
+          name: "",
           email: "",
           message: "",
         });
@@ -67,12 +67,12 @@ function Contact() {
     const offsetY = clientY - top;
 
     // Normalize mouse position to get the distance from the center
-    const distanceX = (offsetX / width) - 0.5; // [-0.5, 0.5]
-    const distanceY = (offsetY / height) - 0.5; // [-0.5, 0.5]
+    const distanceX = offsetX / width - 0.5; // [-0.5, 0.5]
+    const distanceY = offsetY / height - 0.5; // [-0.5, 0.5]
 
     // Apply 3D transformation based on mouse position
     const rotateX = distanceY * -20; // Rotate on X-axis (top-bottom)
-    const rotateY = distanceX * 20;  // Rotate on Y-axis (left-right)
+    const rotateY = distanceX * 20; // Rotate on Y-axis (left-right)
 
     // Apply the transformation
     card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
@@ -87,9 +87,6 @@ function Contact() {
   return (
     <Homelayout>
       <div className="flex flex-row justify-between">
-        
-        
-
         <div className="flex w-[50%] h-[100%] justify-center ">
           <div
             className="relative w-[60%] h-[70%]  bg-gray-800 border-solid-white group hover:shadow-[0_0_15px_15px_teal] overflow-hidden duration-1000 rounded-xl"
@@ -119,16 +116,16 @@ function Contact() {
               </h1>
 
               <div className="flex  flex-col gap-2">
-                <label htmlFor="Name">Name :</label>
+                <label htmlFor="name">Name :</label>
                 <input
                   type="text"
-                  id="Name"
+                  id="name"
                   required
                   placeholder="Enter your name..."
-                  name="Name"
+                  name="name"
                   className="px-3 w-full  border rounded-md py-1 bg-transparent text-white"
                   onChange={handelformdata}
-                  value={inputText.Name}
+                  value={inputText.name}
                 />
               </div>
 
@@ -171,55 +168,57 @@ function Contact() {
         </div>
 
         <div className="text-2xl w-[50%]">
-          
-          <h1 className='text-4xl font-extrabold p-10 text-teal-300'>Get in Touch with Us</h1>
-          <p className='font-sans text-xl font-bold pl-10 pr-10'>
-          At CodeScorer, we believe in creating a supportive and interactive
-           learning environment for students of all ages. Whether you're seeking academic 
-           assistance, online tutoring, or have any questions about our courses, we're here
-            to help you every step of the way!
+          <h1 className="text-4xl font-extrabold p-10 text-teal-300">
+            Get in Touch with Us
+          </h1>
+          <p className="font-sans text-xl font-bold pl-10 pr-10">
+            At CodeScorer, we believe in creating a supportive and interactive
+            learning environment for students of all ages. Whether you're
+            seeking academic assistance, online tutoring, or have any questions
+            about our courses, we're here to help you every step of the way!
           </p>
 
-          <h3 className='text-2xl font-bold p-5 pl-10 pr-10 text-teal-300'>Why Choose Us</h3>
-          <p>
-
-              <ul>
-                <li>
-                  <h4 className='text-xl text-gray-300 pl-10 font-bold'>
+          <h3 className="text-2xl font-bold p-5 pl-10 pr-10 text-teal-300">
+            Why Choose Us
+          </h3>
+          <div>
+            <ul>
+              <li>
+                <h4 className="text-xl text-gray-300 pl-10 font-bold">
                   Expert Tutors:
-                  </h4>
-                  <p className='pl-10 text-xl font-extralight'> Our team of experienced 
-                     instructors is dedicated to providing high-quality
-                     education in a variety of subjects, from mathematics
-                      and science to language learning and test preparation.
-                  </p>
-                </li>
-                <li>
-                <h4 className='text-xl text-gray-300 pl-10 font-bold'>
-                Flexible Scheduling:
-                  </h4>
-                  <p className='pl-10 text-xl font-extralight'>  We offer convenient
-                     online classes tailored to your schedule.
-                      Learn at your own pace, from anywhere in the world.
-                  </p>
-                </li>
-                <li>
-                <h4 className='text-xl text-gray-300 pl-10 font-bold'>
-                Personalized Learning:
-                  </h4>
-                  <p className='pl-10 text-xl font-extralight'>  We understand that
-                     every student learns differently. Our courses are designed
-                      to cater to your unique needs and learning style, ensuring the best outcomes.
-                  </p>
-                </li>
-              </ul>
-              
-
-          </p>
-
+                </h4>
+                <p className="pl-10 text-xl font-extralight">
+                  {" "}
+                  Our team of experienced instructors is dedicated to providing
+                  high-quality education in a variety of subjects, from
+                  mathematics and science to language learning and test
+                  preparation.
+                </p>
+              </li>
+              <li>
+                <h4 className="text-xl text-gray-300 pl-10 font-bold">
+                  Flexible Scheduling:
+                </h4>
+                <p className="pl-10 text-xl font-extralight">
+                  {" "}
+                  We offer convenient online classes tailored to your schedule.
+                  Learn at your own pace, from anywhere in the world.
+                </p>
+              </li>
+              <li>
+                <h4 className="text-xl text-gray-300 pl-10 font-bold">
+                  Personalized Learning:
+                </h4>
+                <p className="pl-10 text-xl font-extralight">
+                  {" "}
+                  We understand that every student learns differently. Our
+                  courses are designed to cater to your unique needs and
+                  learning style, ensuring the best outcomes.
+                </p>
+              </li>
+            </ul>
+          </div>
         </div>
-
-
       </div>
     </Homelayout>
   );

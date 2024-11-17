@@ -14,9 +14,8 @@ function DisplayLectures() {
   const { state } = useLocation();
   const { lectures } = useSelector((state) => state?.lecture);
   const {quizzes} = useSelector((state) => state?.quiz);
-  
-
   const { role } = useSelector((state) => state.auth);
+  const userId = useSelector((state) => state.auth.data._id);
   const [currentLecture, setCurrentLecture] = useState(0);
 
   async function onLectureDelete(courseId, lectureId) {
@@ -161,7 +160,7 @@ function DisplayLectures() {
                         <button
                           onClick={() => {
                             navigate(`/quiz/${quiz?._id}/attempt`, {
-                              state: { ...quiz },
+                              state: { ...quiz ,userId:userId},
                             });
                           }}
                           className="btn btn-accent px-2 py-1 rounded-md font-semibold text-sm"

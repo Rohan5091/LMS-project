@@ -8,11 +8,12 @@ import Homelayout from '../../Layouts/Homelayout';
 
 
 const QuizDisplay = () => {
-  const userId=useSelector(state=>state.auth.data._id);
+  const [userId, setUserId] = useState(null);
   const [quiz, setQuiz] = useState(null);
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [score, setScore] = useState(0);
+  const [already, setAlready] = useState(false);
   const dispatch=useDispatch();
 
   const { state } = useLocation();
@@ -25,19 +26,26 @@ const QuizDisplay = () => {
       navigate("/courses")
     }
     setQuiz(state);
+    setUserId(state.userId);
     
   },[]);
 
   useEffect(() => {
-      let response=null
+    async function LoadData() {
       if(userId){
-         response=dispatch(getSubmittedQuiz({userId:userId,quizId:state._id}));
+        const response=await dispatch(getSubmittedQuiz({userId:userId,quizId:state._id}));
+        const data=response?.payload;
+        if(data?.success && data?.data){
+          setAlready(true);
+          setIsSubmitted(data?.success);
+          setScore(data?.data?.score);
+          setSelectedOptions(data?.data?.selectedOptions);
+        } 
       }
-      if(response?.success){
-         setIsSubmitted(response?.success);
-      }
-      console.log(response);
-  },[userId]);
+    }
+    LoadData();
+  }, [userId]);
+
   
 
   const handleOptionChange = (questionIndex, optionIndex) => {
@@ -87,7 +95,14 @@ const QuizDisplay = () => {
     <Homelayout>
     <div className="flex justify-center items-center py-10 min-h-screen bg-gray-100">
       <div className="w-full max-w-2xl bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-        <h2 className="text-2xl font-bold mb-4">{quiz.title}</h2>
+        <h2 className="text-2xl w-full text-black text-center font-bold mb-4">{quiz.title}</h2>
+        {
+          already && (
+            <div className="text-center text-lg font-semibold text-red-700 mb-4">
+              You have already submitted this quiz. Your score is {score} out of {quiz.questions.length}.
+            </div>
+          )
+        }
         {
           // Display the pie chart only after submission
           isSubmitted && (

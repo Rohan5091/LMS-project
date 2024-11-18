@@ -28,29 +28,29 @@ const ShowContactUsInfo = () => {
   }, []);
 
   if (loading) {
-    return <div className="text-center py-10">Loading...</div>;
+    return <div className="text-center py-10 text-teal-500">Loading...</div>;
   }
 
   if (!data.length) {
-    return <div className="text-center py-10 text-gray-500">No data available.</div>;
+    return <div className="text-center py-10 text-teal-500">No data available.</div>;
   }
 
   return (
     <Homelayout>
-    <div className="container mx-auto py-10 px-4">
+    <div className="container mx-auto py-20 px-4">
       <h1 className="text-3xl font-bold text-center mb-6">User Messages</h1>
       <div className="overflow-x-auto">
         <table className="table-auto w-full px-10 border-collapse border border-gray-200">
           <thead>
             <tr className="bg-gray-100">
-              <th className="border border-gray-200 px-4 py-2 text-left text-gray-600">Name</th>
-              <th className="border border-gray-200 px-4 py-2 text-left text-gray-600">Email</th>
-              <th className="border border-gray-200 px-4 py-2 text-left text-gray-600">Message</th>
+              <th className="border border-gray-200 px-4 py-2 text-left text-black">Name</th>
+              <th className="border border-gray-200 px-4 py-2 text-left text-black">Email</th>
+              <th className="border border-gray-200 px-4 py-2 text-left text-black">Message</th>
             </tr>
           </thead>
           <tbody>
             {data.map((item, index) => (
-              <tr key={index} className="hover:bg-gray-50 cursor-pointer">
+              <tr key={index} className="hover:bg-teal-500 hover:font-bold hover:text-black cursor-pointer">
                 <td className="border border-gray-200 w-[20%] px-4 py-2">{item.name}</td>
                 <td className="border border-gray-200 w-[30%] px-4 py-2">{item.email}</td>
                 <td className="border border-gray-200 px-4 py-2">{item.message}</td>

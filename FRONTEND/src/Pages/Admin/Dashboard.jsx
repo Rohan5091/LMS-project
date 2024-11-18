@@ -75,8 +75,8 @@ const UserDetails = {
  
   return (
     <Homelayout>
-          <div className="min-h-[90vh] pt-5 flex flex-col flex-wrap gap-10 text-black">
-              <center><h1 className="text-yellow-500 text-5xl font-bold">Admin Dashboard</h1></center> 
+          <div className="min-h-[90vh] pt-20 flex flex-col flex-wrap gap-10 text-black">
+              <center><h1 className="text-teal-500 text-5xl font-bold">Admin Dashboard</h1></center> 
           <div className="grid grid-cols-2 gap-5 m-auto mx-10">
              <div className="flex flex-col items-center bg-blue-100 gap-10 p-5 shadow-lg rounded-md"> 
                  <div className="h-80 w-80">
@@ -88,14 +88,14 @@ const UserDetails = {
                           <p className="font-semibold "> Registered users</p>
                           <h3 className="text-4xl font-bold ">{allUserCount}</h3>
                        </div>
-                       < FaUsers className="text-yellow-500 text-5xl" />
+                       < FaUsers className="text-teal-500 text-5xl" />
                    </div>
                    <div className="flex items-center justify-between p-5 rounded-md shadow-md"> 
                        <div className=" flex flex-col items-center ">
                           <p className="font-semibold ">Enrolled Users</p>
                           <h3 className="text-4xl font-bold ">{subscribedCount}</h3>
                        </div>
-                       < FaUsers className="text-yellow-500 text-5xl" />
+                       < FaUsers className="text-teal-500 text-5xl" />
                    </div>
   
                  </div>

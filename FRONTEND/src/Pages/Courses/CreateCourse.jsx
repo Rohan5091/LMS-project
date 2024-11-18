@@ -81,7 +81,7 @@ formData.append("thumbnail",inputData.thumbnail)
     <Homelayout>
        <div className="h-screen flex items-center justify-center">
        <form 
-          className="flex flex-col justify-center gap-5 rounded-lg p-4 text-white w-[700px] my-10 shadow-[0_0_10px_yellow] relative "
+          className="flex flex-col justify-center gap-5 rounded-lg p-4 text-white w-[700px] my-10 shadow-[0_0_10px_teal] relative "
           onSubmit={onFormSubmit}
        >
            <Link className="absolute top-8 text-3xl link text-accent cursor-pointer">
@@ -90,13 +90,13 @@ formData.append("thumbnail",inputData.thumbnail)
            <h1 className="text-center font-bold text-2xl">Create new Course</h1> 
            <main className="grid grid-cols-2 gap-x-10 ">
               <div className="space-y-6">
-                 <div>
+                 <div className="border rounded-lg overflow-hidden">
                       <label htmlFor="image_uploads" className="cursor-pointer"> 
                        {  inputData.previewImage ? (
                           <img 
                             src={inputData.previewImage}
                             alt="previewImage" 
-                            className="w-full h-44 m-auto border "
+                            className="w-full h-44 m-auto border  "
                           />
                        ) :(
                           <div  className="w-full h-44 m-auto flex items-center justify-center border">
@@ -107,7 +107,7 @@ formData.append("thumbnail",inputData.thumbnail)
                       </label>
                       <input
                         onChange={handleImageUpload}
-                        className="hidden" 
+                        className="hidden " 
                         type="file"
                         id="image_uploads"
                         accept=".jpg .png .jpeg"
@@ -121,7 +121,7 @@ formData.append("thumbnail",inputData.thumbnail)
                       </label>
                       <input
                        type="text" 
-                       className="bg-transparent px-2 py-1 border"
+                       className="bg-transparent px-2 py-1 border rounded-lg"
                        required
                        name="title"
                        id="title"
@@ -138,7 +138,7 @@ formData.append("thumbnail",inputData.thumbnail)
                       </label>
                       <input
                        type="text" 
-                       className="bg-transparent px-2 py-1 border"
+                       className="bg-transparent px-2 py-1 border rounded-lg"
                        required
                        name="category"
                        id="category"
@@ -152,7 +152,7 @@ formData.append("thumbnail",inputData.thumbnail)
                       </label>
                       <input
                        type="text" 
-                       className="bg-transparent px-2 py-1 border"
+                       className="bg-transparent px-2 py-1 border rounded-lg"
                        required
                        name="createdBy"
                        id="createdBy"
@@ -160,23 +160,24 @@ formData.append("thumbnail",inputData.thumbnail)
                        onChange={handleInput}
                      />
                  </div>
-                 <div className="flex flex-col gap-1">
+                 <div className="flex flex-col gap-1 ">
                       <label htmlFor="description" className="text-lg font-semibold">
                          Course description 
                       </label>
                       <textarea
                        type="text" 
-                       className="bg-transparent h-24 overflow-y-scroll resize-none px-2 py-1 border"
+                       className="bg-transparent h-24 overflow-y-scroll resize-none px-2 py-1 border "
                        required
                        name="description"
                        id="description"
                        value={inputData.description}
                        onChange={handleInput}
+                       
                      />
                  </div>
               </div>
            </main>
-           <button  className="w-full bg-yellow-600 border rounded-md hover:bg-yellow-500 font-bold text-white hover:text-black transition-all ease-out duration-300" onSubmit={onFormSubmit}>Create Course </button>
+           <button  className="w-full bg-teal-600 border text-2xl rounded-md py-2 hover:bg-teal-500 font-extrabold text-white hover:text-black transition-all ease-out duration-300" onSubmit={onFormSubmit}>Create Course </button>
 
        </form>
        </div>

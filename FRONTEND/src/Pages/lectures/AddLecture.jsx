@@ -63,7 +63,7 @@ function AddLecture() {
   }, []);
   return (
     <Homelayout>
-      <div className="min-h-[90vh] flex items-center flex-col justify-center">
+      <div className="min-h-[90vh] pt-20 flex items-center flex-col justify-center">
         <div className="flex flex-col border px-4 py-5 items-center gap-3 justify-center">
 
           <header className=" relative w-full flex items-center justify-center">

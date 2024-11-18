@@ -52,13 +52,13 @@ function DisplayLectures() {
   }, []);
   return (
     <Homelayout>
-      <div className="flex flex-col gap-10 items-center justify-center min-h-[90vh] py-10 text-white mx-4 ">
-        <div className="text-center text-2xl font-semibold text-yellow-500">
+      <div className="flex flex-col gap-10 items-center justify-center min-h-[90vh] py-16 text-white mx-4 ">
+        <div className="text-center text-2xl font-semibold text-teal-500">
           Course Name:{state?.title}
         </div>
         {lectures && lectures.length > 0 && (
           <div className="flex justify-center  gap-10 w-[100%]">
-            <div className="space-y-5 w-[70%] max-h-[90vh] aspect-video p-2  rounded-lg shadow-[0_0_10px_yellow]">
+            <div className="space-y-5 w-[70%] max-h-[90vh] aspect-video p-2  rounded-lg shadow-[0_0_10px_teal]">
               <video
                 controls
                 className="object-fill rounded-tl-lg rounded-tr-lg w-full"
@@ -69,18 +69,18 @@ function DisplayLectures() {
               ></video>
               <div>
                 <h1>
-                  <span className="text-yellow-500 ">Title :{"  "}</span>
+                  <span className="text-teal-500 ">Title :{"  "}</span>
                   {lectures && lectures[currentLecture]?.title}
                 </h1>
                 <p>
-                  <span className="text-yellow-500 ">Description :{"  "}</span>
+                  <span className="text-teal-500 ">Description :{"  "}</span>
                   {lectures && lectures[currentLecture]?.description}
                 </p>
               </div>
             </div>
-            <ul className="w-[20%] max-h-[90vh] p-2 overflow-y-scroll rounded-lg shadow-[0_0_10px_yellow] space-y-4">
+            <ul className="w-[20%] max-h-[90vh] p-2 overflow-y-scroll rounded-lg shadow-[0_0_10px_teal] space-y-4">
              <p className="w-full text-center">Lecture And Quiz list</p>
-              <li className="font-semibold text-xl  text-yellow-500 flex items-center justify-center">
+              <li className="font-semibold text-xl  text-teal-500 flex items-center justify-center">
                 {role === "ADMIN" && (
                   <div>
                     <button
@@ -89,7 +89,7 @@ function DisplayLectures() {
                           state: { ...state },
                         });
                       }}
-                      className="btn btn-active ml-2 btn-primary "
+                      className="btn btn-active ml-2 text-black bg-white hover:text-white "
                     >
                       Add lecture
                     </button>
@@ -99,7 +99,7 @@ function DisplayLectures() {
                           state: { ...state },
                         });
                       }}
-                      className="btn btn-active ml-5 btn-primary "
+                      className="btn btn-active ml-5 text-black bg-white hover:text-white "
                     >
                       Add Quiz
                     </button>

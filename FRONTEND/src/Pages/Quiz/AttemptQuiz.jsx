@@ -93,7 +93,7 @@ const QuizDisplay = () => {
 
   return (
     <Homelayout>
-    <div className="flex justify-center items-center py-10 min-h-screen bg-gray-100">
+    <div className="flex justify-center items-center py-20 min-h-screen bg-gray-100">
       <div className="w-full max-w-2xl bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
         <h2 className="text-2xl w-full text-black text-center font-bold mb-4">{quiz.title}</h2>
         {

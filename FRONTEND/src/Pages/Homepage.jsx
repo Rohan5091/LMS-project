@@ -51,7 +51,7 @@ function Homepage() {
     return (
         <Homelayout>
             <div
-                className="flex flex-col h-[100vh] sm:flex-row items-center sm:justify-center lg:pt-7  relative"
+                className="flex pt-20 flex-col h-[100vh] sm:flex-row items-center sm:justify-center lg:pt-7  relative"
             >
                 {/* Background GIF with reduced opacity using ::before */}
                 <div

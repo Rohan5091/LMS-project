@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 const CheckoutFail = () => {
   return (
     <Homelayout>
-      <div className="min-h-[90vh] flex items-center justify-center text-white">
+      <div className="min-h-[90vh] pt-20 flex items-center justify-center text-white">
         <div className="w-80 h-[26rem] flex flex-col justify-center items-center shadow-[0_0_10px_black] rounded-lg relative">
           <h1 className="bg-red-500 absolute top-0 w-full text-center py-4 text-2xl font-bold rounded-tl-lg rounded-tr-lg">
             Payment failed

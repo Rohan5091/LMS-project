@@ -1,9 +1,11 @@
-
+import { SiMessenger, SiGoogleads,SiTwitter, SiInstagram } from 'react-icons/si';
+import { ImLinkedin } from "react-icons/im";
+import { FaGithubSquare } from "react-icons/fa";
 import React from 'react';
 
 const Footer = () => {
   return (
-    <div className="my-5">
+    <div className="">
       {/* Footer */}
       <footer className="text-center  text-lg-start text-white bg-gray-900">
         {/* Section: Social media */}
@@ -13,22 +15,22 @@ const Footer = () => {
           </div>
           <div className="flex space-x-4">
             <a href="#" className="text-white">
-              <i className="fab fa-facebook-f">hiiiiii</i>
+              <i className="fab   hover:text-teal-400 fa-facebook-f"><  SiMessenger size={30}/></i>
             </a>
             <a href="#" className="text-white">
-              <i className="fab fa-twitter">hiiiiii</i>
+              <i className="fab   hover:text-teal-400 fa-twitter">< SiTwitter size={30} /></i>
             </a>
             <a href="#" className="text-white">
-              <i className="fab fa-google">hiiiiii</i>
+              <i className="fab   hover:text-teal-400 fa-google"><  SiGoogleads size={30} /></i>
             </a>
             <a href="#" className="text-white">
-              <i className="fab fa-instagram">hiiiiii</i>
+              <i className="fab hover:text-teal-400 fa-instagram">< SiInstagram size={30} /></i>
             </a>
             <a href="#" className="text-white">
-              <i className="fab fa-linkedin">hiiiiii</i>
+              <i className="fab hover:text-teal-400 fa-linkedin"><ImLinkedin size={30} /></i>
             </a>
             <a href="#" className="text-white">
-              <i className="fab fa-github">hiiiiii</i>
+              <i className="fab  hover:text-teal-400 fa-github">< FaGithubSquare size={30} /></i>
             </a>
           </div>
         </section>
@@ -43,8 +45,7 @@ const Footer = () => {
                 <h6 className="uppercase font-semibold  hover:text-teal-400 hover:underline ">Code-Scorer</h6>
                 <hr className="w-12 my-4 border-t-2  border-teal-400" />
                 <p className=" ">
-                  Here you can use rows and columns to organize your footer
-                  content. Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                Ultimately, our goal is to uplift individuals and communities by emphasizing the transformative power of education. By enabling access to knowledge and creativity, we strive to contribute to the overall growth and well-being of humanity.
                 </p>
               </div>
 

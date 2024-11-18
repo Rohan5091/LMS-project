@@ -8,6 +8,8 @@ import courseRoute from "./routers/course.route.js";
 import paymentRoute from "./routers/payment.routs.js";
 import mescellaniousRoute from "./routers/miscellaneous.js";
 import quizRouter from "./routers/quiz.route.js";
+import { Server } from "socket.io";
+import { createServer } from "http";
 
 const app=express();
  
@@ -49,5 +51,33 @@ app.all("*",(req,res,next)=>{
 });
 
 app.use(errorMiddleware)
+
+const server = createServer(app);
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:5174/chat/community", // Adjust based on your frontend URL
+    methods: ["GET", "POST"],
+    credentials: true,
+  },
+});
+
+// WebSocket Logic
+io.on("connection", (socket) => {
+  console.log("A user connected:", socket.id);
+
+  // Listen for incoming messages
+  socket.on("send_message", (data) => {
+    console.log("Message received:", data);
+
+    // Broadcast message to all clients
+    io.emit("receive_message", data);
+  });
+
+  // Handle user disconnect
+  socket.on("disconnect", () => {
+    console.log("A user disconnected:", socket.id);
+  });
+});
+
 
 export default app;

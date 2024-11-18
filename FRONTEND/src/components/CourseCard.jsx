@@ -10,11 +10,11 @@ function CourseCard({data,courseId}) {
     <img src={data?.thumbnail?.secure_url} alt="Shoes" />
   </figure>
   <div className="card-body">
-    <h2 className="card-title text-yellow-500 font-semibold text-2xl">{data?.title}</h2>
+    <h2 className="card-title text-teal-500 font-semibold text-2xl">{data?.title}</h2>
     <p className='line-clamp-2'>{data?.description}</p>
-    <p >Categary: <span  className='text-yellow-500'>{data?.category}</span></p>
-    <p>Number of Lectures: <span className='text-yellow-500'>{data?.numbersOfLecture}</span></p>
-    <p>Created By: <span className='text-yellow-500'>{data?.createdBy}</span></p>
+    <p >Categary: <span  className='text-teal-500'>{data?.category}</span></p>
+    <p>Number of Lectures: <span className='text-teal-500'>{data?.numbersOfLecture}</span></p>
+    <p>Created By: <span className='text-teal-500'>{data?.createdBy}</span></p>
   </div>
 </div>
   )

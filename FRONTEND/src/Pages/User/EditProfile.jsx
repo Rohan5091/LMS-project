@@ -66,7 +66,7 @@ function EditProfile() {
         <div className="flex items-center justify-center h-screen">
              <form
                onSubmit={onFormSubmit}
-               className="flex flex-col w-96 items-center justify-center gap-4 p-8 rounded-md text-white shadow-[0_0_10px_yellow]"
+               className="flex flex-col w-96 items-center justify-center gap-4 p-8 rounded-md text-white shadow-[0_0_10px_teal]"
              >
              <h1 className="font-semibold text-xl text-white">Edit Profile</h1>
              <div>
@@ -74,12 +74,12 @@ function EditProfile() {
                 {data.previewImage?(
                    <div>
                       <img  
-                       className="h-24 w-24 rounded-full"
+                       className="h-24 w-24 rounded-full hover:scale-125"
                        src={data.previewImage} 
                        />
                    </div>
                 ):( 
-                   <BsPersonCircle className="h-24 w-24 rounded-full"/>
+                   <BsPersonCircle className="h-24 w-24 rounded-full hover:scale-125 transition duration-1000 ease-in-out"/>
                 )}
              </label>
              <input
@@ -96,7 +96,7 @@ function EditProfile() {
                 <input
                    type="text"
                    id="fullName"
-                   className="mx-4 px-2 py-1 rounded-md bg-transparent border"  
+                   className="mx-4 px-6 py-1 rounded-md bg-transparent border"  
                    placeholder="Enter your name...."
                    required
                    onChange={handleFormData}
@@ -104,7 +104,7 @@ function EditProfile() {
                    name="fullName"
                    />
               </div>
-              <button className="bg-yellow-500 block w-full px-2 py-1 border rounded hover:bg-yellow-600 text-white hover:text-black transition-all ease-in-out duration-300">Submit</button>
+              <button className="bg-teal-500 block w-full px-2 py-1 border rounded hover:bg-teal-600 text-white hover:text-black transition-all hover:scale-110 ease-in-out duration-300">Submit</button>
 
               <Link
                className="w-full"

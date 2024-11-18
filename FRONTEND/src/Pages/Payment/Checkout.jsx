@@ -79,7 +79,7 @@ function Checkout() {
      <Homelayout>
          <form 
           onSubmit={handleSubscription}
-          className="min-h-[90vh] flex items-center justify-center text-white"
+          className="min-h-[90vh] flex pt-20 items-center justify-center text-white"
            >
             <div className="w-80 overflow-hidden h-[26rem] flex items-center rounded-lg relative flex-col justify-center shadow-[0_0_10px_yellow]">
                <h1 className="bg-yellow-500 text-2xl p-5 text-center font-bold w-full absolute top-0">Subscription bundle

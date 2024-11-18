@@ -23,6 +23,7 @@ import Dashboard from './Pages/Admin/Dashboard'
 import AddQuizForm from './Pages/Quiz/AddQuiz'
 import DisplayQuiz from './Pages/Quiz/AttemptQuiz'
 import ShowContactUsInfo from './Pages/ShowContactUsInfo'
+import CommunityChat from './components/CommunityChat'
 
 
 export default function App() {
@@ -44,6 +45,7 @@ export default function App() {
             <Route path='/admin/dashboard' element={<Dashboard/>}/> 
         </Route>
         <Route element={<RequireAuth allowedRoles={["ADMIN","USER"]}/>}>
+            <Route path='/chat/community' element={<CommunityChat/>}/>
             <Route path='/quiz/:quizId/attempt' element={<DisplayQuiz/>}/>
             <Route path='/user/profile' element={<Profile/>}/>
             <Route path='/user/editprofile' element={<EditProfile/>}/>

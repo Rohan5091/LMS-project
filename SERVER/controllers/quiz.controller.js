@@ -117,7 +117,7 @@ const submitQuiz=async function(req,res,next){
     try {
         await sendMail({
             email:user.email,
-            subject:"sucessfully Registered !!!",
+            subject:"Quiz submission  Message",
             messageHTML
         });
     } catch (error) {

@@ -88,7 +88,7 @@ const register = async function (req, res, next) {
 
   return res.status(202).json({
     success: true,
-    message: "USER IS SUCESSFULLY RESISTER ",
+    message: "Registered Successfully",
     data: user,
   });
 };

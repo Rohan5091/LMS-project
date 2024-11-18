@@ -86,7 +86,7 @@ function Contact() {
 
   return (
     <Homelayout>
-      <div className="flex flex-row justify-between">
+      <div className="flex flex-row p-20 justify-between">
         <div className="flex w-[50%] h-[100%] justify-center ">
           <div
             className="relative w-[60%] h-[70%]  bg-gray-800 border-solid-white group hover:shadow-[0_0_15px_15px_teal] overflow-hidden duration-1000 rounded-xl"

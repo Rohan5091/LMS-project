@@ -1,6 +1,7 @@
 
 import {Schema,model} from "mongoose"
 
+
 const courseSchema= new Schema({
       title:{
          type: String,
@@ -56,7 +57,6 @@ const courseSchema= new Schema({
 },{
    timestamps:true
 })
-
 const Course=model("Course",courseSchema);
 
 export default Course;

@@ -59,7 +59,7 @@ const createCourse = async (req, res, next) => {
     return next(new ApiError(409, "Course is not created"));
   }
   
-  console.log( "file image",req.file);
+  
 
   if (req.file) {
     await cloudinary.v2.uploader.upload(
@@ -72,15 +72,27 @@ const createCourse = async (req, res, next) => {
           return next(new ApiError(409, "thumbnail is not uploaded"));
         }
         if (result) {
+          // fs.unlink(req.file.path, (err) => {
+          //   if (err) {
+          //     console.error('Error deleting file:', err);
+          //     return next(err);
+          //   }
+          //   console.log(`File ${req.file.filename} deleted from uploads folder.`);
+          // });
           course.thumbnail.public_id = result.public_id;
           course.thumbnail.secure_url = result.secure_url;
+          fs.unlink(req.file.path, (err) => {
+            if (err) {
+              console.error('Error deleting file:', err);
+              return next(err);
+            }
+            console.log(`File ${req.file.filename} deleted from uploads folder.`);
+          });
         }
       }
     );
   }
   await course.save();
-
-     fs.rm(`uploads/${req.file.filename}`);
 
   return res.status(200).json({
     success: true,
@@ -164,6 +176,13 @@ const addLectureByCourseId = async (req, res, next) => {
             return next(new ApiError(409, "lecture is not uploaded"));
           }
           if (result) {
+            fs.unlink(req.file.path, (err) => {
+              if (err) {
+                console.error('Error deleting file:', err);
+                return next(err);
+              }
+              console.log(`File ${req.file.filename} deleted from uploads folder.`);
+            });
             lecturesData.lecture.public_id = result.public_id;
             lecturesData.lecture.secure_url = result.secure_url;
           }

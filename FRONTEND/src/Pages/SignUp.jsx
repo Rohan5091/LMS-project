@@ -169,7 +169,7 @@ function SignUp() {
             <button className="relative bg-teal-400 p-10 pl-20 pr-20 mt-3 py-2 text-black font-bold text-lg rounded-md overflow-hidden group hover:bg-black hover:border-solid-white hover:text-white transition-transform duration-1000 ease-in-out">
                 {/* Horizontal Curtain */}
                 <span className="absolute inset-0 bg-teal-300 opacity-80 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-1000 ease-in-out"></span>
-                Login
+                Sign-Up
             </button>
             <p>
               If already have an account?{" "}

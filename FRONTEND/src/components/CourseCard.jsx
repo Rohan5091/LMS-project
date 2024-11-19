@@ -1,7 +1,5 @@
 import { useNavigate } from "react-router-dom"
 
-
-
 function CourseCard({data,courseId}) {
   const navigator=useNavigate()
   return (

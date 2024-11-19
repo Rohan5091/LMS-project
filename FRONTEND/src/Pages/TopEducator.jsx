@@ -44,6 +44,16 @@ const leadershipData = [
   },
   {
     id: 4,
+    name: 'Dr. Dheeraj Kumar Dixit',
+    title: 'Asst. Professor',
+    bio: 'Leading IT innovation. Tech-savvy leader. Driving digital transformation.',
+    imageUrl: dheerajsir,
+    twitterUrl: '#',
+    githubUrl: '#',
+    slackUrl: '#'
+  },
+  {
+    id: 5,
     name: 'Dr. Devesh Kumar Lal',
     title: 'Asst. Professor',
     bio: 'Innovating our technology stack. Passionate about coding. Always learning.',
@@ -53,7 +63,7 @@ const leadershipData = [
     slackUrl: '#'
   },
   {
-    id: 5,
+    id: 6,
     name: 'Prof. Khushboo Agrawal',
     title: 'Asst. Professor',
     bio: 'Crafting our brand story. Marketing genius. Creative and innovative.',
@@ -62,16 +72,7 @@ const leadershipData = [
     githubUrl: '#',
     slackUrl: '#'
   },
-  {
-    id: 6,
-    name: 'Dr. Dheeraj Kumar Dixit',
-    title: 'Asst. Professor',
-    bio: 'Leading IT innovation. Tech-savvy leader. Driving digital transformation.',
-    imageUrl: dheerajsir,
-    twitterUrl: '#',
-    githubUrl: '#',
-    slackUrl: '#'
-  },
+  
   {
     id: 7,
     name: 'Mr. Rohan Malakar',

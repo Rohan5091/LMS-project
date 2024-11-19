@@ -33,9 +33,6 @@ const appsData = [
     name: 'Instagram',
     description: 'Capture and share moments. Make Your Day, Follow friends and explore new photos.',
 },
-
-
-
 ];
 
 function SocialMedia() {
@@ -55,7 +52,7 @@ function SocialMedia() {
                 ))}
             </div>
             <div className='flex gap-48 pt-10 items-center '>
-                <div className=" text-9xl opacity-15  text-teal-300  font-extrabold ">CODE-SCORER</div>
+                <div className=" text-9xl opacity-40  text-teal-300  font-extrabold ">CODE-SCORER</div>
                 <img
                     src={gif7}
                     alt="Code-Scorer Animation"

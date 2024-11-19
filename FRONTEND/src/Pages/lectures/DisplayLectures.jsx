@@ -58,7 +58,7 @@ function DisplayLectures() {
         </div>
         {lectures && lectures.length > 0 && (
           <div className="flex justify-center  gap-10 w-[100%]">
-            <div className="space-y-5 w-[70%] max-h-[90vh] aspect-video p-2  rounded-lg shadow-[0_0_10px_teal]">
+            <div className="space-y-5 w-[70%]  aspect-video p-2  rounded-lg shadow-[0_0_10px_teal]">
               <video
                 controls
                 className="object-fill rounded-tl-lg rounded-tr-lg w-full"
@@ -139,7 +139,11 @@ function DisplayLectures() {
                     <li className="space-y-2" key={quiz._id}>
                       <p
                         className="cursor-pointer"
-                        onClick={() => setCurrentLecture(idx)}
+                        onClick={() => {
+                          navigate(`/quiz/${quiz?._id}/attempt`, {
+                            state: { ...quiz ,userId:userId},
+                          });
+                        }}
                       >
                         <span>
                           {" "}

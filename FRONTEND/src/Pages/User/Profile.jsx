@@ -48,13 +48,13 @@ function Profile() {
                  </div>
           </div>
           <div className="w-full space-x-4 ">
-            <Link to={"/changepassword"}>
+            {/* <Link to={"/changepassword"}>
               <button className=" bg-teal-500 border px-9 py-1 transition-all ease-in-out duration-300 rounded-lg hover:bg-teal-600 text-black ">
                 Change Password
               </button>
-            </Link>
+            </Link> */}
             <Link to={"/user/editprofile"}>
-              <button className="w-1/2 bg-teal-500 border px-2 py-1 transition-all ease-in-out duration-300 rounded-lg hover:bg-teal-600 text-black">
+              <button className="w-full bg-teal-500 border px-2 py-1 transition-all ease-in-out duration-300 rounded-lg hover:bg-teal-600 text-black">
                 Edit Profile
               </button>
             </Link>

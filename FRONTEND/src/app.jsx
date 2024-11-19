@@ -37,6 +37,7 @@ export default function App() {
         <Route path='/courses' element={<CoursesList/>}/>
         <Route path='/contact' element={<Contact/>}/>
         <Route path='/dinied' element={<DiniedPage/>}/>
+        <Route path='/user/profile' element={<Profile/>}/>
         <Route element={<RequireAuth allowedRoles={["ADMIN"]}/>}>
             <Route path='/contact/showData' element={<ShowContactUsInfo/>}/>
             <Route path='/course/create' element={<CreateCourse/>}/>
@@ -47,7 +48,7 @@ export default function App() {
         <Route element={<RequireAuth allowedRoles={["ADMIN","USER"]}/>}>
             <Route path='/chat/community' element={<CommunityChat/>}/>
             <Route path='/quiz/:quizId/attempt' element={<DisplayQuiz/>}/>
-            <Route path='/user/profile' element={<Profile/>}/>
+            
             <Route path='/user/editprofile' element={<EditProfile/>}/>
             <Route path='/checkout' element={<Checkout/>}/>
             <Route path='/checkout/success' element={<CheckoutSuccess/>}/>

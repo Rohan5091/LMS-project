@@ -59,6 +59,13 @@ const register = async function (req, res, next) {
           (error, result) => {
             
             if (result) {
+              fs.unlink(req.file.path, (err) => {
+                if (err) {
+                  console.error('Error deleting file:', err);
+                  return next(err);
+                }
+                console.log(`File ${req.file.filename} deleted from uploads folder.`);
+              });
               user.avatar.public_id=result.public_id;
               user.avatar.secure_url=result.secure_url;
             }
@@ -126,7 +133,7 @@ const logout = async (req, res) => {
   });
   res.status(202).json({
     success: true,
-    message: "user logout sucessfully",
+    message: "user logged out sucessfully",
   });
 };
 
@@ -274,7 +281,13 @@ const updateProfile = async (req, res, next) => {
       if (result) {
         user.avatar.public_id = result.public_id;
         user.avatar.secure_url = result.secure_url;
-        fs.rm(`uplouds/${req.file.filename}`);
+        fs.unlink(req.file.path, (err) => {
+          if (err) {
+            console.error('Error deleting file:', err);
+            return next(err);
+          }
+          console.log(`File ${req.file.filename} deleted from uploads folder.`);
+        });
       }
     } catch (error) {
       return next(

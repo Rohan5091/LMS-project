@@ -3,6 +3,7 @@ import ApiError from "../utills/error.utills.js";
 import {razorpay} from "../server.js"
 import crypto from "crypto"
 import Payment from "../models/payment.model.js";
+import generateEnrollmentEmailHTML from "../utills/EnrolledToCourseMessage.js";
 export const GetRazorpayKey= async (req,res,next)=>{
       return  res.status(200).json({
             success:true,
@@ -75,13 +76,25 @@ export const verifySubscription= async (req,res,next)=>{
         })
         user.subscription.status="active";
 
-        await user.save()
+        const messageHTML=generateEnrollmentEmailHTML(user.fullName);
+        try {
+          await sendMail({
+              email:user.email,
+              subject:"Enrollment Message",
+              messageHTML
+          });
+          } catch (error) {
+              console.log("error",error);
+          }
 
-        return res.status(200).json({
-         success:true,
-         message:"Payment verified successfully",
-         data:user
-     })
+            await user.save()
+
+            return res.status(200).json({
+            success:true,
+            message:"Payment verified successfully",
+            data:user
+        })
+
       } catch (error) {
          next( new ApiError(500,error.message))
       }

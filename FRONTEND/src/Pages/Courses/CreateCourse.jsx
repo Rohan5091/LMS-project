@@ -63,7 +63,7 @@ formData.append("createdBy",inputData.createdBy)
 formData.append("thumbnail",inputData.thumbnail)
 
 
-  const response= dispatch(CreateNewCourse(formData))
+  const response= await dispatch(CreateNewCourse(formData))
   if (response?.payload) {
      setInputData({
       title:"",
@@ -84,9 +84,9 @@ formData.append("thumbnail",inputData.thumbnail)
           className="flex flex-col justify-center gap-5 rounded-lg p-4 text-white w-[700px] my-10 shadow-[0_0_10px_teal] relative "
           onSubmit={onFormSubmit}
        >
-           <Link className="absolute top-8 text-3xl link text-accent cursor-pointer">
+           <span onClick={()=>{navigate("/courses")}} className="absolute top-8 text-3xl link text-accent cursor-pointer">
               <AiOutlineArrowLeft />
-           </Link>
+           </span>
            <h1 className="text-center font-bold text-2xl">Create new Course</h1> 
            <main className="grid grid-cols-2 gap-x-10 ">
               <div className="space-y-6">

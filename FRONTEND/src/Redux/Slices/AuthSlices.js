@@ -65,7 +65,8 @@ export const GetUserProfile=createAsyncThunk("get/user/profile",async ()=>{
     const response=axiosInstance.get("/user/profile")
     return (await response).data
   } catch (error) {
-     toast.error(error.message)
+     console.log(error.message);
+    // toast.error(error.message)
   }
   
 })

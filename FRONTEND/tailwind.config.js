@@ -11,6 +11,11 @@ export default {
       },
     },
   },
+  // variants: {
+  //   extend: {
+  //     cursor: ['disabled'],
+  //   },
+  // },
   plugins: [require("daisyui")],
 }
 

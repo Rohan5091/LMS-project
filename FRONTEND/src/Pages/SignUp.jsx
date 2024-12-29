@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Homelayout from "../Layouts/Homelayout";
 import { BsPersonCircle } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
@@ -6,18 +6,24 @@ import { useDispatch } from "react-redux";
 import toast from "react-hot-toast";
 import { createAccount } from "../Redux/Slices/AuthSlices";
 import gif2 from "../assets/Images/gif2.gif"; // Adjust the path as needed.
+import axiosInstance from "../Hellers/axiosinstance";
+import Otp from "../components/Otp";
 
 function SignUp() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [image, setImage] = useState("");
+  const emailVerified=useRef(JSON.parse(localStorage.getItem("emailVerified")) || false);
+  const [showVerificationPage,setshowVerificationPage]=useState(false);
+  const signUpDataLocal = JSON.parse(localStorage.getItem("signUpData"));
   const [signUpData, setSignUpData] = useState({
-    fullName: "",
-    email: "",
-    password: "",
-    avatar: "",
+    fullName: signUpDataLocal.fullName || "",
+    email: signUpDataLocal.email || "",
+    password: signUpDataLocal.password || "",
+    avatar: signUpDataLocal.avatar || "",
   });
+  
 
   function handelformdata(e) {
     const { name, value } = e.target;
@@ -25,6 +31,8 @@ function SignUp() {
       ...signUpData,
       [name]: value,
     });
+    let signUpDatalocal = { ...signUpData, [name]: value };
+    localStorage.setItem('signUpData', JSON.stringify(signUpDatalocal));
   }
 
   function GetImage(e) {
@@ -36,7 +44,6 @@ function SignUp() {
         ...signUpData,
         avatar: uploadedImage,
       });
-
       const fileReader = new FileReader();
       fileReader.readAsDataURL(uploadedImage);
       fileReader.addEventListener("load", function () {
@@ -44,6 +51,23 @@ function SignUp() {
       });
     }
   }
+
+  async function handleVerifyEmail(e) {
+    e.preventDefault();
+    if (
+      !signUpData.email.match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      )
+    ) {
+      toast.error("Please enter a valid email");
+      return;
+    }
+    if(!signUpData.email){
+       toast.error("Enter email to verify")
+    }
+    setshowVerificationPage(true);
+}
+  
 
   async function createNewAccount(e) {
     e.preventDefault();
@@ -55,14 +79,11 @@ function SignUp() {
       toast.error("Name should be at least 5 characters");
       return;
     }
-    if (
-      !signUpData.email.match(
-        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-      )
-    ) {
-      toast.error("Please enter a valid email");
+    if(!emailVerified){
+      toast.error("Please verify email");
       return;
     }
+    
     if (!signUpData.password.match(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/)) {
       toast.error(
         "Password should be 6-16 characters and have at least 1 number and 1 special character"
@@ -99,7 +120,7 @@ function SignUp() {
           {/* Signup Form */}
           <form
             noValidate
-            onSubmit={createNewAccount}
+            //onSubmit={createNewAccount}
             className="flex bg-gray-800 border h-[100%] w-full items-center rounded-xl p-5 pt-10 gap-4 flex-col shadow-[0_0_10px_10px_teal]"
           >
             <h1 className="text-4xl font-semibold text-teal-500">
@@ -153,6 +174,20 @@ function SignUp() {
                 onChange={handelformdata}
                 value={signUpData.email}
               />
+              { !emailVerified.current ? 
+                <button 
+                className="text-left py-2 mt-2 px-5 border-2 w-fit rounded-lg bg-black"
+                onClick={handleVerifyEmail}
+                >
+                   Verify email
+                </button>
+                :
+                <button
+                 className="text-left py-2 mt-2 px-5 border-2 w-fit rounded-lg bg-black"
+                 >
+                   Veried email
+                </button>
+              }
             </div>
             <div className="flex flex-col w-[80%] gap-2">
               <label htmlFor="password">Password :</label>
@@ -166,7 +201,10 @@ function SignUp() {
                 value={signUpData.password}
               />
             </div>
-            <button className="relative bg-teal-400 p-10 pl-20 pr-20 mt-3 py-2 text-black font-bold text-lg rounded-md overflow-hidden group hover:bg-black hover:border-solid-white hover:text-white transition-transform duration-1000 ease-in-out">
+            <button 
+               className="relative bg-teal-400 p-10 pl-20 pr-20 mt-3 py-2 text-black font-bold text-lg rounded-md overflow-hidden group hover:bg-black hover:border-solid-white hover:text-white transition-transform duration-1000 ease-in-out"
+                 onClick={createNewAccount}
+               >
                 {/* Horizontal Curtain */}
                 <span className="absolute inset-0 bg-teal-300 opacity-80 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-1000 ease-in-out"></span>
                 Sign-Up
@@ -194,6 +232,10 @@ function SignUp() {
           </div>
         </div>
       </div>
+      {
+        showVerificationPage &&
+         <Otp email={signUpData.email} setshowVerificationPage={setshowVerificationPage} emailVerified={emailVerified}/>
+      }
     </Homelayout>
   );
 }
